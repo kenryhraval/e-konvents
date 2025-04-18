@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
-            $table->string('code')->unique();
+            $table->string('code');
             $table->timestamps();
         });
     }
