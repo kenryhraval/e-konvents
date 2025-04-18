@@ -10,13 +10,19 @@ class Event extends Model
 {
     use HasFactory;
 
-    
     protected $fillable = [
         'name',
         'description',
         'dresscode',
         'datetime'
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'datetime' => 'date',
+        ];
+    }
 
     public function attendaces()
     {

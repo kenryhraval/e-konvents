@@ -7,25 +7,46 @@
 
         <div>
             <label for="name">Event Name:</label>
-            <input type="text" name="name" id="name" required>
+            {{-- old is needed for cases of errors --}}
+            <input type="text" name="name" id="name" required value="{{ old('name') }}">
         </div>
 
         <div>
             <label for="description">Description:</label>
-            <textarea name="description" id="description" required></textarea>
+            <textarea name="description" id="description" required>{{ old('description') }}</textarea>
         </div>
+        
+
+        @php
+            $dresscodes = ['Full suit', 'Semi-formal', 'Casual', 'Traditional', 'Theme costume'];
+        @endphp
 
         <div>
             <label for="dresscode">Dresscode:</label>
-            <input type="text" name="dresscode" id="dresscode">
+            <select name="dresscode" id="dresscode" required>
+                <option value="" disabled selected>Select a dresscode</option>
+                @foreach ($dresscodes as $dresscode)
+                    <option value="{{ $dresscode }}" {{ old('dresscode') == $dresscode ? 'selected' : '' }}>
+                        {{ $dresscode }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
         <div>
             <label for="datetime">Datetime:</label>
-            <input type="datetime-local" name="datetime" id="datetime">
+            <input type="datetime-local" name="datetime" id="datetime" required value="{{ old('datetime') }}">
         </div>
         
 
         <button type="submit">Create Event</button>
     </form>
+
+    @if ($errors->any()) 
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    @endif
 </x-layout>

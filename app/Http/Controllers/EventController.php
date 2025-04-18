@@ -39,38 +39,48 @@ class EventController extends Controller
         // create and save the new event
         Event::create($validated);
     
-        return redirect()->route('events.index')->with('success', 'Event created successfully!');
+        return redirect()->route('events.index')->with('success', 'Event created!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Event $event)
     {
-        //
+        // $event->load(...)
+        return view('events.show', ['event' => $event]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Event $event)
     {
-        //
+        return view('events.edit', ['event' => $event]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Event $event)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:50',
+            'description' => 'required|string|max:1000',
+            'dresscode' => 'required|string|max:20',
+            'datetime' => 'required|date|after:now',
+        ]);
+
+        $event->update($validated);
+
+        return redirect()->route('events.index')->with('success', 'Event updated!');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Event $event)
     {
-        //
+        $event->delete();
+
+        return redirect()->route('events.index')->with('success', 'Event deleted successfully!');
     }
 }
