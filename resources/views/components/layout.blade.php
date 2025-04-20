@@ -15,31 +15,54 @@
         
     @endif
 
-    <header>
-        <nav>
-            <h1>e-konvents</h1>
-            
+    <nav class="navbar">
+        <ul>
+            <li class="brand">
+                <h1>e-konvents</h1>
+            </li>
+    
+            <!-- Guest Links -->
             @guest
+            <li class="guest-link">
                 <a href="{{ route('show.login') }}" class="btn">login</a>
+            </li>
             @endguest
-
+    
+            <!-- Authenticated User Links -->
             @auth
-                <a href="{{ route('events.index') }}">events    </a>
+            <li class="auth-user">
+                <span>Hi there, {{ Auth::user()->name }}</span>
+            </li>
+            <li class="auth-link">
+                <a href="{{ route('events.index') }}" class="btn">events</a>
+            </li>
+            <li class="auth-link">
                 <a href="{{ route('events.create') }}" class="btn">new event</a>
+            </li>
+            <li class="auth-link">
                 <a href="{{ route('items.index') }}" class="btn">items</a>
+            </li>
+            <li class="auth-link">
                 <a href="{{ route('items.create') }}" class="btn">new item</a>
+            </li>
+            <li class="auth-link">
                 <a href="{{ route('users.index') }}" class="btn">users</a>
+            </li>
+            <li class="auth-link">
                 <a href="{{ route('users.create') }}" class="btn">new user</a>
-                <span>
-                    Hi there, {{ Auth::user()->name }}
-                </span>
+            </li>
+    
+            <!-- Logout -->
+            <li class="auth-link">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button class="btn"> Logout </button>
+                    <button class="btn">Logout</button>
                 </form>
+            </li>
             @endauth
-        </nav>
-    </header>
+        </ul>
+    </nav>
+    
 
     <div class="main">
         {{ $slot }}

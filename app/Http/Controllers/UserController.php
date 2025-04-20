@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,',
             'birthdate' => 'nullable|date',
         ]);
     
@@ -73,7 +73,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'email' => 'required|email|max:255', 
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id, 
             'password' => 'nullable|min:10|confirmed',
             'phone' => 'nullable|string|max:15',
             'address' => 'nullable|string|max:255',
