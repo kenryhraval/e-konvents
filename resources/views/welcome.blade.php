@@ -1,5 +1,5 @@
 @vite('resources/css/app.css')
 <x-layout>
-<h1> Please login to proceed. </h1>
+<h1> Information system  for your fraternity!</h1>
 </x-layout>
 

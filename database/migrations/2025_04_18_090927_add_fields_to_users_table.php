@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('birthdate')->nullable();
             $table->decimal('balance', 10, 2)->default(0);
             $table->integer('points')->default(0);
+            $table->string('address')->nullable();
             $table->softDeletes();
         });
     }
@@ -26,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['phone_number', 'birthdate', 'balance', 'points', 'deleted_at']);
+            $table->dropColumn(['phone_number', 'birthdate', 'balance', 'points', 'deleted_at', 'address']);
         });
     }
 };
