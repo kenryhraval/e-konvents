@@ -1,59 +1,148 @@
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
+/* @tailwind base;
+@tailwind components; */
 @tailwind utilities;
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Comic Sans MS', sans-serif;
 }
 
 html {
     scroll-padding-top: 100px;
+    scroll-behavior: smooth;
 }       
+
+body {
+    background-color: rgb(255, 255, 255);
+    font-family: 'Comic Sans MS', sans-serif;
+}
 
 a {
     @apply text-black no-underline;
 }
 
+.custom-alert {
+    @apply fixed top-25 left-1/2 -translate-x-1/2 w-[24rem] z-100 shadow-lg;
+}
+
 .errors ul {
     color: red;
-    list-style: disc;
+    list-style: none;
     margin-left: 20px;
 }
 
-.navbar {
-    @apply bg-white shadow-md fixed w-full z-50 h-15;
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-}
+.sidebar {
+  @apply bg-green-100 p-4 shadow-lg;
 
-
-.navbar ul {
-    @apply flex flex-row justify-evenly list-none;
-    display: flex; 
-    align-items: center; 
-    width: 100%; 
-}
-
-.navbar h1 {
-    @apply text-2xl font-bold text-green-700;
-}
-
-.navbar span {
-    @apply text-black;
-}
-
-.btn {
-    @apply bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700;
-    
+  width: 100%;
+  height: auto;
+  position: relative;
 }
 
 .main {
-    @apply pt-15;
+  @apply p-10;
 }
+
+/* medium screens and up */
+@media (min-width: 768px) {
+  .sidebar {
+    @apply fixed top-20 left-0 w-64 h-[calc(100vh-5rem)];
+  }
+  .main {
+    @apply ml-64 pt-28 ;
+  }
+}
+
+
+.navbar {
+    @apply fixed w-full z-50 h-20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(36, 36, 36);
+    font-family: 'Monaco', monospace;
+}
+
+.navbar-inner {
+    @apply flex items-center justify-between w-full h-full px-8;
+}
+
+.navbar-right {
+    @apply flex gap-6 items-center list-none h-full ;
+}
+
+.navbar ul {
+    @apply flex flex-row items-center justify-evenly h-full list-none p-0 m-0;
+}
+
+.navbar li {
+    @apply flex items-center h-full;
+}
+
+.navbar h1 {
+    @apply text-4xl font-bold text-white p-0 m-0;
+}
+
+.custom-button {
+    @apply text-white hover:text-green-200 px-4 py-2 font-semibold text-lg;
+}
+
+/* .main {
+    @apply flex flex-col items-center mx-auto pt-28 pb-24
+    w-[100%]
+    sm:w-[85%]
+    md:w-[70%]
+} */
+
+
+
+.login-form-outer {
+    background-image: url('/public/images/gallery2.jpg');
+    background-size: cover;
+    background-position: center;
+    @apply sm:rounded-lg sm:p-10 w-[100%] lg:w-[70%] xl:w-[60%] flex items-center justify-center mb-12;
+}
+  
+.login-form-inner {
+    background-color: rgba(49, 49, 49, 0.9);
+    @apply sm:rounded-lg p-12 sm:p-16 text-white w-[100%] flex flex-col gap-8 items-center;
+}
+
+.form-field {
+    @apply flex w-full flex-col;
+}
+
+label { 
+    color: gray;
+}
+
+input, textarea {
+    @apply rounded-md px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-900;
+}
+
+
+.card {
+    @apply rounded-lg overflow-hidden p-6 transform hover:bg-amber-200 transition duration-300 ease-in-out 
+    min-w-[200px] max-w-[300px] w-full;
+}
+
+.card-title {
+    @apply text-xl text-black;
+}
+
+.card-description {
+    @apply text-gray-600 mt-2;
+}
+
+.card-meta {
+    @apply mt-4 text-sm text-gray-500;
+}
+
+
+
+
+
 

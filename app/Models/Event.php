@@ -14,14 +14,20 @@ class Event extends Model
         'name',
         'description',
         'dresscode',
-        'datetime'
+        'datetime',
+        'user_id'
     ];
 
     protected function casts(): array
     {
         return [
-            'datetime' => 'date',
+            'datetime' => 'datetime',
         ];
+    }
+
+    public function organizer()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function attendaces()

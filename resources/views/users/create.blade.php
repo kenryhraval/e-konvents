@@ -1,6 +1,13 @@
 @vite('resources/css/app.css')
 <x-layout>
-    
+     <x-slot name="title">
+        Create User
+    </x-slot>
+
+    <x-slot name="sidebar">
+        User List
+        <a href="{{ route('users.create') }}">CREATE USER</a>
+    </x-slot>
 
     <form method="POST" action="{{ route('users.store') }}">
         <h1>Register</h1>

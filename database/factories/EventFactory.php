@@ -12,8 +12,9 @@ class EventFactory extends Factory
         return [
             'name'=>fake()->sentence(4),
             'description'=>fake()->paragraph(2),
-            'dresscode'=>fake()->word(),
+            'dresscode'=>fake()->randomElement(['Full suit', 'Semi-formal', 'Casual', 'Traditional', 'Theme costume']),
             'datetime' => fake()->dateTimeBetween('now', '+2 years'),
+            'user_id' => "1"
         ];
     }
 }

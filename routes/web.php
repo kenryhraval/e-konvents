@@ -4,6 +4,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\TakenController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,6 +16,8 @@ Route::middleware('auth')->group(function() {
     Route::resource('items', ItemController::class);
     Route::resource('events', EventController::class);
     Route::resource('users', UserController::class);
+    
+    Route::post('/items/{item}/take', [TakenController::class, 'store'])->name('taken.store');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

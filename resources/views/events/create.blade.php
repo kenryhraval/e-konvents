@@ -1,13 +1,18 @@
 @vite('resources/css/app.css')
 <x-layout>
+    <x-slot name="title">
+        Create Event
+    </x-slot>
+    <x-slot name="sidebar">
+        Events Display
+    </x-slot>
     <h1>Create Event</h1>
 
     <form action="{{ route('events.store') }}" method="POST">
-        @csrf {{-- VERY important for security --}}
+        @csrf
 
         <div>
             <label for="name">Event Name:</label>
-            {{-- old is needed for cases of errors --}}
             <input type="text" name="name" id="name" required value="{{ old('name') }}">
         </div>
 

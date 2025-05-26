@@ -1,5 +1,13 @@
 @vite('resources/css/app.css')
 <x-layout>
+     <x-slot name="title">
+        Edit Profile
+    </x-slot>
+
+    <x-slot name="sidebar">
+        User List
+        <a href="{{ route('users.create') }}">CREATE USER</a>
+    </x-slot>
 
     <h1>Edit User</h1>
 

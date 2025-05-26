@@ -1,4 +1,12 @@
 <x-layout>
+    <x-slot name="title">
+        Events
+    </x-slot>
+
+    <x-slot name="sidebar">
+        Events Display
+    </x-slot>
+
     <h1>{{ $event->name }}</h1>
 
     <p><strong>Description:</strong> {{ $event->description }}</p>
@@ -7,17 +15,24 @@
 
     <p><strong>Date and Time:</strong> {{ $event->datetime->format('d.m.Y H:i') }}</p>
 
-    <a href="{{ route('events.edit', $event) }}" class="edit-button">
-        Edit
-    </a>
+    <p>User ID: {{ auth()->id() }}</p>
+<p>Event Organizer ID: {{ $event->user_id }}</p>
 
-    <form method="POST" action="{{ route('events.destroy', $event) }}">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="delete-button">
-            Delete
-        </button>
-    </form>
+        
+    @can('update', $event)
+        <a href="{{ route('events.edit', $event) }}" class="edit-button">
+            Edit
+        </a>
+
+        <form method="POST" action="{{ route('events.destroy', $event) }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="delete-button">
+                Delete
+            </button>
+        </form>
+    @endcan
+    
     
 
 

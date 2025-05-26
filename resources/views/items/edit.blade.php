@@ -1,4 +1,13 @@
 <x-layout>
+     <x-slot name="title">
+        Edit Item
+    </x-slot>
+
+    <x-slot name="sidebar">
+        The Inventory
+        <a href="{{ route('items.create') }}" >CREATE ITEM</a>
+    </x-slot>
+
     <h1>Edit Item</h1>
 
     <form method="POST" action="{{ route('items.update', $item) }}">

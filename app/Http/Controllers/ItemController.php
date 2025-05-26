@@ -10,10 +10,27 @@ class ItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::all();
-        return view('items.index', ['items' => $items]);
+        // $items = Item::paginate(20);
+        // return view('items.index', compact('items'));
+
+        $query = Item::query();
+
+        // Filter by search term (name)
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', "%{$search}%");
+        }
+
+        // Sort by price if requested
+        if ($request->boolean('sortByCost')) {
+            $query->orderBy('price');
+        }
+
+        $items = $query->paginate(20)->withQueryString();;
+
+        return view('items.index', compact('items'));
     }
 
     /**
@@ -40,18 +57,6 @@ class ItemController extends Controller
         return redirect()->route('items.index')->with('success', 'Item created!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Item $item)
-    {
-        // $item->load(...)
-        return view('items.show', ['item' => $item]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Item $item)
     {
         return view('items.edit', ['item' => $item]);
@@ -76,6 +81,7 @@ class ItemController extends Controller
     {
         $item->delete();
 
-        return redirect()->route('items.index')->with('success', 'Item deleted successfully!');
+        return redirect()->route('items.index')->with('success', 'Item deleted!');
     }
+
 }

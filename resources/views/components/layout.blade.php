@@ -2,68 +2,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-konvents</title>
+    <title>{{ $title }}</title>
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    @vite('resources/css/app.css')
+    {{-- Flowbite --}}
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+
+    {{-- Custom --}}
+     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
+
     @if (session('success'))
-        <div class="flash">
-            {{ session('success') }}
-        </div>
-        
+    <div class="alert custom-alert alert-success alert-dismissible" role="alert">
+        <div> {{ session('success') }} </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     @endif
 
-    <nav class="navbar">
-        <ul>
-            <li class="brand">
-                <h1>e-konvents</h1>
-            </li>
-    
-            <!-- Guest Links -->
-            @guest
-            <li class="guest-link">
-                <a href="{{ route('show.login') }}" class="btn">login</a>
-            </li>
-            @endguest
-    
-            <!-- Authenticated User Links -->
-            @auth
-            <li class="auth-user">
-                <span>Hi there, {{ Auth::user()->name }}</span>
-            </li>
-            <li class="auth-link">
-                <a href="{{ route('events.index') }}" class="btn">events</a>
-            </li>
-            <li class="auth-link">
-                <a href="{{ route('events.create') }}" class="btn">new event</a>
-            </li>
-            <li class="auth-link">
-                <a href="{{ route('items.index') }}" class="btn">items</a>
-            </li>
-            <li class="auth-link">
-                <a href="{{ route('items.create') }}" class="btn">new item</a>
-            </li>
-            <li class="auth-link">
-                <a href="{{ route('users.index') }}" class="btn">users</a>
-            </li>
-            <li class="auth-link">
-                <a href="{{ route('users.create') }}" class="btn">new user</a>
-            </li>
-    
-            <!-- Logout -->
-            <li class="auth-link">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button class="btn">Logout</button>
-                </form>
-            </li>
-            @endauth
-        </ul>
-    </nav>
-    
 
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <div class="navbar-left">
+                <a href="#" class="brand uppercase">
+                    <h1>e-konvents</h1>
+                </a>
+            </div>
+            <ul class="navbar-right">
+                @guest
+                <li><a href="{{ route('show.login') }}" class="custom-button">LOGIN</a></li>
+                @endguest
+
+                @auth
+                <li><a href="{{ route('events.index') }}" class="custom-button">EVENTS</a></li>
+                <li><a href="{{ route('items.index') }}" class="custom-button">ITEMS</a></li>
+                <li><a href="{{ route('users.index') }}" class="custom-button">USERS</a></li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="custom-button">LOGOUT</button>
+                    </form>
+                </li>
+                @endauth
+            </ul>
+        </div>
+    </nav>
+
+    @auth
+    <sidebar class="sidebar">
+        
+        {{ $sidebar }}
+    </sidebar>
+    
+    @endauth
+    
+    
     <div class="main">
         {{ $slot }}
     </div>

@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    use HasFactory;
     protected $fillable = [
         'name',
         'email',
@@ -38,6 +39,11 @@ class User extends Authenticatable
     public function attendaces()
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    public function events_organized()
+    {
+        return $this->hasMany(Event::class);
     }
 
     public function absences()
