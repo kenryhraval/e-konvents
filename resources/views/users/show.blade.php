@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.users>
      <x-slot name="title">
         {{ $user->name }}
     </x-slot>
@@ -34,4 +34,4 @@
             </div>
         </div>
     </div>
-</x-layout>
+</x-layouts.users>

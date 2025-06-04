@@ -1,5 +1,5 @@
 @vite('resources/css/app.css')
-<x-layout>
+<x-layouts.items>
     <x-slot name="title">
         Create Item
     </x-slot>
@@ -33,4 +33,4 @@
             @endforeach
         </ul>
     @endif
-</x-layout>
+</x-layouts.items>

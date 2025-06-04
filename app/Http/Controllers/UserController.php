@@ -75,18 +75,41 @@ class UserController extends Controller
         $request->validate([
             'email' => 'required|email|max:255|unique:users,email,' . $user->id, 
             'password' => 'nullable|min:10|confirmed',
-            'phone' => 'nullable|string|max:15',
+            'phone_number' => 'nullable|string|max:15',
             'address' => 'nullable|string|max:255',
             'balance' => 'nullable|numeric|min:0',
+            'admin_types' => 'nullable|array',
+            'admin_types.*' => 'in:admin,item,event,base',
+            'positions' => 'array',
+            'positions.*' => 'string|max:15',
         ]);
 
-        $userData = $request->only(['name', 'email', 'phone', 'address', 'balance']);
+        $userData = $request->only(['name', 'email', 'phone_number', 'address', 'balance']);
 
         if ($request->filled('password')) {
             $userData['password'] = bcrypt($request->password);
         }
 
         $user->update($userData);
+
+        // Update admin roles
+        // First delete old ones:
+        $user->admins()->delete();
+
+        // Then insert new ones if present:
+        if (!empty($request['admin_types'])) {
+            foreach ($request['admin_types'] as $type) {
+                $user->admins()->create(['type' => $type]);
+            }
+        }
+
+        // Update Positions
+        $user->positions()->delete();
+        if (!empty($request['positions'])) {
+            foreach ($request['positions'] as $position) {
+                $user->positions()->create(['type' => $position]);
+            }
+        }
 
         return redirect()->route('events.index')->with('success', 'User updated!'); //->intended()
     }

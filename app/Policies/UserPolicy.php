@@ -7,9 +7,14 @@ use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
+
+    public function before(User $user, string $ability)
+    {
+        if ($user->admins()->whereIn('type', ['admin'])->exists()) {
+            return true;
+        }
+    }
+    
     public function viewAny(User $user): bool
     {
         return false;

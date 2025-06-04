@@ -1,12 +1,65 @@
+import $ from 'jquery';
+import 'jquery-validation';
+
+window.$ = $;
+window.jQuery = $;
+
+
 document.addEventListener('DOMContentLoaded', () => {
-  const carousel = document.getElementById('carousel');
-  const cardWidth = 18 * 16 + 16; // 18rem * 16px + 16px gap
+    const carousel = document.getElementById('carousel');
+    const cardWidth = 18 * 16 + 16;
 
-  document.getElementById('next').addEventListener('click', () => {
-    carousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
-  });
+    document.getElementById('next')?.addEventListener('click', () => {
+        carousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    });
 
-  document.getElementById('prev').addEventListener('click', () => {
-    carousel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-  });
+    document.getElementById('prev')?.addEventListener('click', () => {
+        carousel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+    });
+
+    // Auto-submit on checkbox change
+    const sortCheckbox = document.getElementById('sortCheckbox');
+    sortCheckbox?.addEventListener('change', () => {
+        document.getElementById('filterForm').submit();
+    });
+
+    
+    $(".login-form-inner").validate({
+        rules: {
+            email: { required: true, email: true },
+            password: { required: true }
+        },
+        messages: {
+            email: {
+                required: "Norādiet e-pastu...",
+                email: "Nekorekts e-pasts."
+            },
+            password: {
+                required: "Norādiet paroli..."
+            }
+        },
+        
+        errorPlacement: function(error, element) {
+            element.siblings('.invalid-feedback').text(error.text()).show();
+        },
+
+        highlight: function(element) {
+            $(element).addClass('is-invalid').removeClass('is-valid');
+            $(element).siblings('.invalid-feedback').show();
+        },
+        unhighlight: function(element) {
+            $(element).removeClass('is-invalid').addClass('is-valid');
+            $(element).siblings('.invalid-feedback').text('').hide();
+        },
+
+
+        onkeyup: function(element) {
+            $(element).valid();
+        },
+        onfocusout: function(element) {
+            $(element).valid();
+        }
+    });
+    
 });
+

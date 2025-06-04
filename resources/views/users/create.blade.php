@@ -1,5 +1,5 @@
 @vite('resources/css/app.css')
-<x-layout>
+<x-layouts.users>
      <x-slot name="title">
         Create User
     </x-slot>
@@ -55,4 +55,4 @@
             </ul>
         </div>
     @endif
-</x-layout>
+</x-layouts.users>

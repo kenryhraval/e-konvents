@@ -1,29 +1,46 @@
-<x-layout>
-     <x-slot name="title">
+<x-layouts.items>
+    <x-slot name="title">
         Edit Item
     </x-slot>
 
-    <x-slot name="sidebar">
-        The Inventory
-        <a href="{{ route('items.create') }}" >CREATE ITEM</a>
-    </x-slot>
+    <div class="container my-5">
+        <h1 class="mb-4">Edit Item</h1>
 
-    <h1>Edit Item</h1>
+        <form method="POST" action="{{ route('items.update', $item) }}" class="card shadow-sm p-4 bg-light rounded">
+            @csrf
+            @method('PUT')
 
-    <form method="POST" action="{{ route('items.update', $item) }}">
-        @csrf
-        @method('PUT')
+            <div class="mb-3">
+                <label for="name" class="form-label">Item Name</label>
+                <input type="text" name="name" id="name"
+                value="{{ old('name', $item->name) }}"
+                required
+                class="form-control @error('name') is-invalid @enderror">
 
-        <div>
-            <label for="name">Item Name:</label>
-            <input type="text" name="name" id="name" value="{{ old('name', $item->name) }}" required>
-        </div>
+                <div class="invalid-feedback">
+                    @error('name')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>
+            
 
-        <div>
-            <label for="price">Item Price:</label>
-            <input type="number" step="0.01" min="0" name="price" id="price" required value="{{ old('price', $item->price) }}">
-        </div>   
+            <div class="mb-3">
+                <label for="price" class="form-label">Item Price</label>
+                <input type="number" 
+                step="0.01" min="0" 
+                name="price" id="price" 
+                required value="{{ old('price', $item->price) }}"  
+                class="form-control @error('name') is-invalid @enderror">
 
-        <button type="submit">Update Item</button>
-    </form>
-</x-layout>
+                <div class="invalid-feedback">
+                    @error('price')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>   
+
+            <button type="submit" class="btn btn-success">Update Item</button>
+        </form>
+    </div>
+</x-layouts.items>

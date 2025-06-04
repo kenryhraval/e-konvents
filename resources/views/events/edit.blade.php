@@ -1,10 +1,6 @@
-<x-layout>
+<x-layouts.events>
     <x-slot name="title">
-        Edit
-    </x-slot>
-    
-    <x-slot name="sidebar">
-        Events Display
+        Edit Event
     </x-slot>
 
     <div class="form-1">
@@ -57,4 +53,4 @@
             </ul>
         </div>
     @endif
-</x-layout>
+</x-layouts.events>

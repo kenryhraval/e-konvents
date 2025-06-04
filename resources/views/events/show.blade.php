@@ -1,9 +1,5 @@
-<x-layout>
+<x-layouts.events>
     <x-slot name="title">
-        Events
-    </x-slot>
-
-    <x-slot name="sidebar">
         Events Display
     </x-slot>
 
@@ -16,7 +12,7 @@
     <p><strong>Date and Time:</strong> {{ $event->datetime->format('d.m.Y H:i') }}</p>
 
     <p>User ID: {{ auth()->id() }}</p>
-<p>Event Organizer ID: {{ $event->user_id }}</p>
+    <p>Event Organizer ID: {{ $event->user_id }}</p>
 
         
     @can('update', $event)
@@ -39,4 +35,4 @@
     <a href="{{ route('events.index') }}">Back to Events</a>
 
 
-</x-layout>
+</x-layouts.events>

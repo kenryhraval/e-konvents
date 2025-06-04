@@ -18,6 +18,8 @@
         "@tailwindcss/postcss": "^4.1.4",
         "@tailwindcss/vite": "^4.1.4",
         "autoprefixer": "^10.4.21",
+        "jquery": "^3.7.1",
+        "jquery-validation": "^1.21.0",
         "tailwindcss": "^4.1.4"
     }
 }

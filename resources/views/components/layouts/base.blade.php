@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title }}</title>
+    <title>{{ $title ?? 'e-konvents' }}</title>
     
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,13 +27,14 @@
 
 
     <nav class="navbar">
-        <div class="navbar-inner">
-            <div class="navbar-left">
+        <div class="navbar-inner flex-col md:flex-row">
+            <div class="navbar-left mb-2 md:mb-0">
                 <a href="#" class="brand uppercase">
                     <h1>e-konvents</h1>
                 </a>
             </div>
-            <ul class="navbar-right">
+
+            <ul class="navbar-right flex-col md:flex-row hidden md:flex w-full md:w-auto">
                 @guest
                 <li><a href="{{ route('show.login') }}" class="custom-button">LOGIN</a></li>
                 @endguest
@@ -53,17 +54,16 @@
         </div>
     </nav>
 
-    @auth
-    <sidebar class="sidebar">
-        
-        {{ $sidebar }}
-    </sidebar>
-    
-    @endauth
-    
-    
-    <div class="main">
-        {{ $slot }}
-    </div>
+@auth
+<aside class="sidebar">
+{{ $sidebar ?? '' }}
+</aside>
+@endauth
+
+
+<main class="main">
+    {{ $slot }}
+</main>
+
 </body>
 </html>

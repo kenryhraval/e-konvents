@@ -7,29 +7,22 @@ use App\Models\Item;
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
-        // $items = Item::paginate(20);
-        // return view('items.index', compact('items'));
-
         $query = Item::query();
 
-        // Filter by search term (name)
         if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where('name', 'like', "%{$search}%");
+            $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        // Sort by price if requested
-        if ($request->boolean('sortByCost')) {
+        if ($request->boolean('sorted')) {
             $query->orderBy('price');
         }
 
-        $items = $query->paginate(20)->withQueryString();;
+        $items = $query->paginate(12);
 
+        // Otherwise, return the full view as normal
         return view('items.index', compact('items'));
     }
 
@@ -65,7 +58,7 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:50',
+            'name' => 'required|string|max:80',
             'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
         ]);
 

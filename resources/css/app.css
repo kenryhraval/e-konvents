@@ -17,7 +17,7 @@ html {
 
 body {
     background-color: rgb(255, 255, 255);
-    font-family: 'Comic Sans MS', sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 a {
@@ -28,37 +28,18 @@ a {
     @apply fixed top-25 left-1/2 -translate-x-1/2 w-[24rem] z-100 shadow-lg;
 }
 
-.errors ul {
-    color: red;
-    list-style: none;
-    margin-left: 20px;
-}
-
 .sidebar {
-  @apply bg-green-100 p-4 shadow-lg;
-
-  width: 100%;
-  height: auto;
-  position: relative;
+  @apply bg-green-100 p-8 shadow-lg w-[100%] h-auto top-40;
+  position: relative
 }
 
 .main {
-  @apply p-10;
+  @apply p-0 pt-40 m-0;
+  position: relative;
 }
-
-/* medium screens and up */
-@media (min-width: 768px) {
-  .sidebar {
-    @apply fixed top-20 left-0 w-64 h-[calc(100vh-5rem)];
-  }
-  .main {
-    @apply ml-64 pt-28 ;
-  }
-}
-
 
 .navbar {
-    @apply fixed w-full z-50 h-20;
+    @apply fixed w-full z-50 h-40;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,12 +48,12 @@ a {
 }
 
 .navbar-inner {
-    @apply flex items-center justify-between w-full h-full px-8;
+    @apply flex items-start md:items-center justify-between w-full h-auto md:h-full px-8 flex-col md:flex-row;
 }
 
 .navbar-right {
-    @apply flex gap-6 items-center list-none h-full ;
-}
+    @apply flex hidden md:flex gap-3 md:gap-6 items-start md:items-center list-none w-full md:w-auto flex-col md:flex-row;
+} 
 
 .navbar ul {
     @apply flex flex-row items-center justify-evenly h-full list-none p-0 m-0;
@@ -89,15 +70,6 @@ a {
 .custom-button {
     @apply text-white hover:text-green-200 px-4 py-2 font-semibold text-lg;
 }
-
-/* .main {
-    @apply flex flex-col items-center mx-auto pt-28 pb-24
-    w-[100%]
-    sm:w-[85%]
-    md:w-[70%]
-} */
-
-
 
 .login-form-outer {
     background-image: url('/public/images/gallery2.jpg');
@@ -116,33 +88,35 @@ a {
 }
 
 label { 
-    color: gray;
+    color: rgb(159, 159, 159);
 }
 
 input, textarea {
-    @apply rounded-md px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-900;
-}
-
-
-.card {
-    @apply rounded-lg overflow-hidden p-6 transform hover:bg-amber-200 transition duration-300 ease-in-out 
-    min-w-[200px] max-w-[300px] w-full;
-}
-
-.card-title {
-    @apply text-xl text-black;
-}
-
-.card-description {
-    @apply text-gray-600 mt-2;
-}
-
-.card-meta {
-    @apply mt-4 text-sm text-gray-500;
+    @apply rounded-md px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-transparent text-gray-900;
 }
 
 
 
+@media (min-width: 769px) {
+  .sidebar {
+    @apply left-0 w-64 h-[calc(100vh-5rem)] top-20 fixed;
+  }
 
+  .main {
+    @apply  p-10 pt-30 m-0;
+  }
 
+  .navbar {
+    @apply h-20;
+  }
 
+  .sidebar + .main {
+    @apply ml-[250px];
+  }
+}
+
+@media (min-width: 1400px) {
+    .main {
+        @apply p-40 pt-30 m-0;
+    }
+}

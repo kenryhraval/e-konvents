@@ -1,11 +1,9 @@
 @vite('resources/css/app.css')
-<x-layout>
+<x-layouts.events>
     <x-slot name="title">
         Create Event
     </x-slot>
-    <x-slot name="sidebar">
-        Events Display
-    </x-slot>
+
     <h1>Create Event</h1>
 
     <form action="{{ route('events.store') }}" method="POST">
@@ -56,4 +54,4 @@
             </ul>
         </div>
     @endif
-</x-layout>
+</x-layouts.events>

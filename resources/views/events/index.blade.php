@@ -1,12 +1,8 @@
 @vite('resources/css/app.css')
 
-<x-layout>
+<x-layouts.events>
     <x-slot name="title">
         Events
-    </x-slot>
-
-    <x-slot name="sidebar">
-        Events Display
     </x-slot>
 
 <div class="relative max-w-full">
@@ -79,9 +75,4 @@ $suitImages = [
     
 </div>
 
-
-
-
-
-
-</x-layout>
+</x-layouts.events>

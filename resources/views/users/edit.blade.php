@@ -1,62 +1,128 @@
 @vite('resources/css/app.css')
-<x-layout>
+<x-layouts.users>
      <x-slot name="title">
         Edit Profile
     </x-slot>
 
-    <x-slot name="sidebar">
-        User List
-        <a href="{{ route('users.create') }}">CREATE USER</a>
-    </x-slot>
-
-    <h1>Edit User</h1>
-
-    <form method="POST" action="{{ route('users.update', $user) }}">
+    <form method="POST" action="{{ route('users.update', $user) }}" class="card shadow-sm p-4 bg-light rounded">
+        <h3> {{ $user->name }} </h3>    
         @csrf
-        @method('PUT') <!-- This is necessary for update requests -->
-        
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required value="{{ old('email', $user->email) }}">
+            @method('PUT')
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email"
+                    value="{{ old('email', $user->email) }}"
+                    required
+                    class="form-control @error('email') is-invalid @enderror">
+                <div class="invalid-feedback">
+                    @error('email')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password"
+                    class="form-control @error('password') is-invalid @enderror">
+                <small class="form-text text-muted">If you want to change the password, enter it here.</small>
+                <div class="invalid-feedback">
+                    @error('password')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                <input type="password" name="password_confirmation" id="password_confirmation"
+                    class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="phone_number" class="form-label">Phone</label>
+                <input type="text" name="phone_number" id="phone_number"
+                    value="{{ old('phone_number', $user->phone_number) }}"
+                    class="form-control @error('phone_number') is-invalid @enderror">
+                <div class="invalid-feedback">
+                    @error('phone_number')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" name="address" id="address"
+                    value="{{ old('address', $user->address) }}"
+                    class="form-control @error('address') is-invalid @enderror">
+                <div class="invalid-feedback">
+                    @error('address')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="balance" class="form-label">Balance</label>
+                <input type="number" name="balance" id="balance" step="0.01"
+                    value="{{ old('balance', $user->balance) }}"
+                    class="form-control @error('balance') is-invalid @enderror">
+                <div class="invalid-feedback">
+                    @error('balance')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>
+
+            @php
+                $adminRoles = ['admin', 'item', 'event'];
+                $positionOptions = ['kr!', 'com!', 'fil!', 't/l kasieris', 't/l sekretārs', 't/l seniors', 'b!fil!'];
+            @endphp
+
+            <div class="d-flex gap-5 mb-3 ">
+                <div>
+                    <label class="form-label">Admin Roles</label>
+                    @foreach ($adminRoles as $role)
+                        <div class="form-check">
+                            <input class="form-check-input p-2"
+                                type="checkbox"
+                                name="admin_types[]"
+                                value="{{ $role }}"
+                                id="admin_{{ $role }}"
+                                {{ in_array($role, old('admin_types', $user->admins->pluck('type')->toArray())) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="admin_{{ $role }}">
+                                {{ ucfirst($role) }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div>
+                    <label class="form-label">Positions</label>
+                    @foreach ($positionOptions as $pos)
+                        <div class="form-check">
+                            <input class="form-check-input p-2"
+                                type="checkbox"
+                                name="positions[]"
+                                value="{{ $pos }}"
+                                id="position_{{ $loop->index }}"
+                                {{ in_array($pos, old('positions', $user->positions->pluck('type')->toArray())) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="position_{{ $loop->index }}">
+                                {{ $pos }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+
         </div>
 
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
-            <small>If you want to change the password, enter it here.</small>
-        </div>
+           
 
-        <div>
-            <label for="password_confirmation">Confirm Password:</label>
-            <input type="password" id="password_confirmation" name="password_confirmation">
-        </div>
+            <button type="submit" class="btn btn-success">Update User</button>
+        </form>
 
-        <div>
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
-        </div>
-
-        <div>
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" value="{{ old('address', $user->address) }}">
-        </div>
-
-        {{-- <div>
-            <label for="balance">Balance:</label>
-            <input type="number" id="balance" name="balance" step="0.01" value="{{ old('balance', $user->balance) }}">
-        </div>       --}}
-
-        <button type="submit">Update User</button>
-    </form>
-
-    @if ($errors->any())
-        <div class="errors">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-</x-layout>
+</x-layouts.users>
