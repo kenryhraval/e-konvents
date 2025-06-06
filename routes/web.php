@@ -9,13 +9,15 @@ use App\Http\Controllers\DutyController;
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\AttendanceController;
 
+use App\Http\Middleware\ActionLogger;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome'); 
 })->name('welcome');
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth', ActionLogger::class)->group(function() {
     Route::resource('items', ItemController::class);
     Route::resource('events', EventController::class);
     Route::resource('users', UserController::class);

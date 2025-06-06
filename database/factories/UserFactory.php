@@ -25,8 +25,8 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => '123@abcdef.lv',
-            'password' => '123abcdef',
+            'email' => 'henris@inbox.lv',
+            'password' => 'henris@inbox.lv',
         ];
     }
 }
