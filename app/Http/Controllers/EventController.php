@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -36,6 +38,8 @@ class EventController extends Controller
             'datetime' => 'required|date|after:now',
         ]);
     
+        $validated['user_id'] = Auth::id();
+
         // create and save the new event
         Event::create($validated);
     
@@ -47,8 +51,10 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        // $event->load(...)
-        return view('events.show', ['event' => $event]);
+        $event->load(['absences', 'attendances', 'organizer', 'duties.user']);
+        $users = User::all();
+        return view('events.show', compact('event', 'users'));
+
     }
 
     /**
@@ -66,12 +72,21 @@ class EventController extends Controller
             'description' => 'required|string|max:1000',
             'dresscode' => 'required|string|max:20',
             'datetime' => 'required|date|after:now',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('events', 'public');
+            $validated['image_path'] = $path;
+        }
+
+        $validated['user_id'] = Auth::id();
 
         $event->update($validated);
 
         return redirect()->route('events.index')->with('success', 'Event updated!');
     }
+
 
 
     /**

@@ -111,7 +111,7 @@ class UserController extends Controller
             }
         }
 
-        return redirect()->route('events.index')->with('success', 'User updated!'); //->intended()
+        return redirect()->route('users.index')->with('success', 'User updated!'); //->intended()
     }
 
     // Delete a user (admin only)

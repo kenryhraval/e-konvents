@@ -28,7 +28,7 @@
 
     <nav class="navbar">
         <div class="navbar-inner flex-col md:flex-row">
-            <div class="navbar-left mb-2 md:mb-0">
+            <div class="navbar-left">
                 <a href="#" class="brand uppercase">
                     <h1>e-konvents</h1>
                 </a>

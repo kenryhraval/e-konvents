@@ -25,16 +25,16 @@ a {
 }
 
 .custom-alert {
-    @apply fixed top-25 left-1/2 -translate-x-1/2 w-[24rem] z-100 shadow-lg;
+    @apply fixed top-10 left-1/2 -translate-x-1/2 w-[24rem] z-100 shadow-lg;
 }
 
 .sidebar {
-  @apply bg-green-100 p-8 shadow-lg w-[100%] h-auto top-40;
+  @apply bg-green-100 shadow-lg w-[100%] overflow-auto top-40 py-10 z-10;
   position: relative
 }
 
 .main {
-  @apply p-0 pt-40 m-0;
+  @apply p-0 pt-40 m-0 mx-0;
   position: relative;
 }
 
@@ -51,8 +51,12 @@ a {
     @apply flex items-start md:items-center justify-between w-full h-auto md:h-full px-8 flex-col md:flex-row;
 }
 
+.navbar-left {
+    @apply mb-4;
+}
+
 .navbar-right {
-    @apply flex hidden md:flex gap-3 md:gap-6 items-start md:items-center list-none w-full md:w-auto flex-col md:flex-row;
+    @apply flex md:flex gap-3 md:gap-6 items-start md:items-center list-none w-full md:w-auto flex-col md:flex-row;
 } 
 
 .navbar ul {
@@ -72,7 +76,7 @@ a {
 }
 
 .login-form-outer {
-    background-image: url('/public/images/gallery2.jpg');
+    background-image: url('/public/images/background.jpg');
     background-size: cover;
     background-position: center;
     @apply sm:rounded-lg sm:p-10 w-[100%] lg:w-[70%] xl:w-[60%] flex items-center justify-center mb-12;
@@ -110,6 +114,10 @@ input, textarea {
     @apply h-20;
   }
 
+  .navbar-left {
+    @apply mb-0;
+  }
+
   .sidebar + .main {
     @apply ml-[250px];
   }
@@ -117,6 +125,6 @@ input, textarea {
 
 @media (min-width: 1400px) {
     .main {
-        @apply p-40 pt-30 m-0;
+        @apply p-40 pt-30 m-0 px-45;
     }
 }

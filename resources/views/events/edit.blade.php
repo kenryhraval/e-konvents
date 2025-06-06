@@ -3,27 +3,45 @@
         Edit Event
     </x-slot>
 
-    <div class="form-1">
-        <form method="POST" action="{{ route('events.update', $event) }}" class="form-2 ">
-            
-            <h1 class="text-3xl font-bold uppercase text-center mb-12">Edit Event</h1>
+    <div class="container my-5">
+        
+        <form method="POST" action="{{ route('events.update', $event) }}"
+            enctype="multipart/form-data"
+            class="card shadow-sm p-4 bg-light rounded">
+
+            <h1 class="mb-4 text-2xl font-bold">Edit Event</h1>
             
             @csrf
             @method('PUT')
 
-            <div class="form-field">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" value="{{ old('name', $event->name) }}" required>
+            <div class="mb-3">
+                <label for="name" class="form-label">Event Name</label>
+                <input type="text" name="name" id="name"
+                       value="{{ old('name', $event->name) }}"
+                       required
+                       class="form-control @error('name') is-invalid @enderror">
+
+                @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
-            <div class="form-field">
-                <label for="description">Description:</label>
-                <textarea name="description" id="description" required class="h-32 resize-none">{{ old('description', $event->description) }}</textarea>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" id="description"
+                          required
+                          class="form-control h-32 resize-none @error('description') is-invalid @enderror">{{ old('description', $event->description) }}</textarea>
+
+                @error('description')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
-            <div class="form-field">
-                <label for="dresscode">Dresscode:</label>
-                <select name="dresscode" id="dresscode" required>
+            <div class="mb-3">
+                <label for="dresscode" class="form-label">Dresscode</label>
+                <select name="dresscode" id="dresscode"
+                        required
+                        class="form-select @error('dresscode') is-invalid @enderror">
                     <option value="" disabled>Select a dresscode</option>
                     @foreach (['Full suit', 'Semi-formal', 'Casual', 'Traditional', 'Theme costume'] as $dresscode)
                         <option value="{{ $dresscode }}" {{ old('dresscode', $event->dresscode) == $dresscode ? 'selected' : '' }}>
@@ -31,26 +49,46 @@
                         </option>
                     @endforeach
                 </select>
-            </div>
-            
-            <div class="form-field">
-                <label for="datetime">Datetime:</label>
-                <input type="datetime-local" name="datetime" id="datetime" value="{{ old('datetime', $event->datetime->format('Y-m-d\TH:i')) }}" required>
+
+                @error('dresscode')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
-            <div class="w-full flex justify-center">
-                <button type="submit" class="btn w-full md:w-auto">Update Event</button>
+            <div class="mb-3">
+                <label for="datetime" class="form-label">Event Date & Time</label>
+                <input type="datetime-local" name="datetime" id="datetime"
+                       value="{{ old('datetime', $event->datetime->format('Y-m-d\TH:i')) }}"
+                       required
+                       class="form-control @error('datetime') is-invalid @enderror">
+
+                @error('datetime')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Event Image</label>
+                <input type="file" name="image" id="image"
+                    accept="image/*"
+                    class="form-control @error('image') is-invalid @enderror">
+
+                @error('image')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <button type="submit" class="btn btn-success">Update Event</button>
         </form>
-    </div>
 
-    @if ($errors->any())
-        <div class="errors">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+        @if ($errors->any())
+            <div class="alert alert-danger mt-4">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
 </x-layouts.events>

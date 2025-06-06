@@ -15,7 +15,8 @@ class Event extends Model
         'description',
         'dresscode',
         'datetime',
-        'user_id'
+        'user_id',
+        'image_path'
     ];
 
     protected function casts(): array
@@ -30,7 +31,7 @@ class Event extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function attendaces()
+    public function attendances()
     {
         return $this->hasMany(Attendance::class);
     }

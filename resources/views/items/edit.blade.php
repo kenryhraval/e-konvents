@@ -4,9 +4,9 @@
     </x-slot>
 
     <div class="container my-5">
-        <h1 class="mb-4">Edit Item</h1>
-
         <form method="POST" action="{{ route('items.update', $item) }}" class="card shadow-sm p-4 bg-light rounded">
+            <h1 class="mb-4">Edit Item</h1>
+            
             @csrf
             @method('PUT')
 

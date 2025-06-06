@@ -78,7 +78,7 @@
 
             @php
                 $adminRoles = ['admin', 'item', 'event'];
-                $positionOptions = ['kr!', 'com!', 'fil!', 't/l kasieris', 't/l sekretārs', 't/l seniors', 'b!fil!'];
+                $positionOptions = ['kr!', 'com!', 'fil!', 'b!fil!', 'kasieris', 'ekonoms', 'sekretārs', 'oldermanis', 'seniors', 'mag! cant!', 'mag! pauk!' , 'major domus'];
             @endphp
 
             <div class="d-flex gap-5 mb-3 ">
@@ -100,21 +100,24 @@
                 </div>
 
                 <div>
-                    <label class="form-label">Positions</label>
-                    @foreach ($positionOptions as $pos)
-                        <div class="form-check">
-                            <input class="form-check-input p-2"
-                                type="checkbox"
-                                name="positions[]"
-                                value="{{ $pos }}"
-                                id="position_{{ $loop->index }}"
-                                {{ in_array($pos, old('positions', $user->positions->pluck('type')->toArray())) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="position_{{ $loop->index }}">
-                                {{ $pos }}
-                            </label>
-                        </div>
-                    @endforeach
-                </div>
+            <label class="form-label">Positions</label>
+            <div class="d-flex flex-wrap gap-0">
+                @foreach ($positionOptions as $pos)
+                    <div class="form-check w-[120px]">
+                        <input class="form-check-input p-2"
+                            type="checkbox"
+                            name="positions[]"
+                            value="{{ $pos }}"
+                            id="position_{{ $loop->index }}"
+                            {{ in_array($pos, old('positions', $user->positions->pluck('type')->toArray())) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="position_{{ $loop->index }}">
+                            {{ $pos }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
             </div>
 
 

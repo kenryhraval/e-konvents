@@ -1,36 +1,85 @@
 <x-layouts.users>
-     <x-slot name="title">
+    <x-slot name="title">
         {{ $user->name }}
     </x-slot>
 
     <x-slot name="sidebar">
-        User List
-        <a href="{{ route('users.create') }}">CREATE USER</a>
+        <div class="mb-3">
+            <h5 class="fw-bold">User List</h5>
+            <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm mt-2">Create User</a>
+        </div>
     </x-slot>
-    
-    <div class="container mx-auto p-4">
 
-        <h1 class="text-2xl font-bold mb-4">User Details</h1>
+    <div class="container my-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">{{ $user->name }}</h2>
+            </div>
 
-        <div class="bg-white shadow-md rounded p-6">
-            <p><strong>ID:</strong> {{ $user->id }}</p>
-            <p><strong>Name:</strong> {{ $user->name }}</p>
-            <p><strong>Email:</strong> {{ $user->email }}</p>
-            <p><strong>Phone:</strong> {{ $user->phone ?? 'N/A' }}</p>
-            <p><strong>Address:</strong> {{ $user->address ?? 'N/A' }}</p>
-            <p><strong>Birthdate:</strong> {{ $user->birthdate ? $user->birthdate->format('Y-m-d') : 'N/A' }}</p>
-            <p><strong>Balance:</strong> {{ number_format($user->balance, 2) }} €</p>
-            <p><strong>Roles:</strong> 
-                @forelse ($user->roles as $role)
-                    <span class="inline-block bg-blue-200 text-blue-800 px-2 py-1 rounded-full text-xs">{{ $role->name }}</span>
-                @empty
-                    No roles assigned
-                @endforelse
-            </p>
+            <div class="card-body">
+                <p class="mb-3">
+                    <strong>Email:</strong>
+                    {{ $user->email }}
+                </p>
 
-            <div class="mt-6">
-                <a href="{{ route('users.edit', $user) }}" class="text-blue-500 hover:underline">Edit User</a>
-                <a href="{{ route('users.index') }}" class="text-gray-500 hover:underline ml-4">Back to list</a>
+                <p class="mb-3">
+                    <strong>Phone:</strong>
+                    {{ $user->phone_number ?? 'N/A' }}
+                </p>
+
+                <p class="mb-3">
+                    <strong>Address:</strong>
+                    {{ $user->address ?? 'N/A' }}
+                </p>
+
+                <p class="mb-3">
+                    <strong>Birthdate:</strong>
+                    {{ $user->birthdate ? $user->birthdate->format('Y-m-d') : 'N/A' }}
+                </p>
+
+                <p class="mb-3">
+                    <strong>Balance:</strong>
+                    {{ number_format($user->balance, 2) }} €
+                </p>
+
+                <p class="mb-3">
+                    <strong>Points:</strong>
+                    {{ $user->points }}
+                </p>
+
+                <p>
+                    <strong>Position:</strong>
+                    @forelse ($user->positions as $position)
+                        <span class="me-1">{{ $position->type }}</span>
+                    @empty
+                        <span class="text-muted">No positions assigned</span>
+                    @endforelse
+                </p>
+            </div>
+
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <a href="{{ route('users.index') }}" class="btn btn-secondary">
+                    ← All Users
+                </a>
+
+                <div class="d-flex gap-2">
+                @can('update', $user, \App\Models\User::class)
+                    <a href="{{ route('users.edit', $user) }}" class="btn btn-outline-primary">
+                        Edit User
+                    </a>
+                @endcan
+                
+                @can('delete', \App\Models\User::class)
+                    <form method="POST" action="{{ route('users.destroy', $user) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger">
+                            Delete
+                        </button>
+                    </form>
+                @endcan
+                </div>
+                
             </div>
         </div>
     </div>

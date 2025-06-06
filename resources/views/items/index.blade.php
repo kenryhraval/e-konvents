@@ -1,7 +1,7 @@
 @vite('resources/css/app.css')
 <x-layouts.items>
 
-    <div id="accordion" data-accordion="collapse" class="border divide-y mx-auto"
+    <div id="accordion" data-accordion="collapse" class="border divide-y mx-auto my-5"
      data-active-classes="bg-gray-800 text-white"
      data-inactive-classes="">
     @foreach ($items as $item)
@@ -17,40 +17,43 @@
                     data-accordion-target="#body-{{ $item->id }}"
                     aria-expanded="{{ $isFirst ? 'true' : 'false' }}"
                     aria-controls="body-{{ $item->id }}"
-                    class="w-full text-left text-black px-3 py-2 text-[12px]"
+                    class="w-full text-left text-black px-3 py-4 !text-[18px]"
                 >
-                    {{ \Illuminate\Support\Str::limit($item->name, 30, '...') }}
-
+                    {{-- {{ \Illuminate\Support\Str::limit($item->name, 40, '...') }} --}}
+                    {{$item->name}}
                 </button>   
             </h2>
 
-            <div id="body-{{ $item->id }}" class="hidden border-t px-3 py-2 bg-blue-100 p-[40px]" aria-labelledby="heading-{{ $item->id }}">
+            <div id="body-{{ $item->id }}" class="hidden border-t px-3 py-4 bg-blue-100 p-[40px]" aria-labelledby="heading-{{ $item->id }}">
                 
-                {{-- Full item name displayed when open --}}
-                <h3 class="text-lg font-semibold mb-2">{{ $item->name }}</h3>
                 <p class="text-base text-gray-600 mb-2">Price: <strong>{{ $item->price }} €</strong></p>
                 
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                     
-                    {{-- Take Form --}}
-                    <form method="POST" action="{{ route('taken.store', $item->id) }}" class="flex flex-1 flex-col md:flex-row gap-2">
+                    <form method="POST" action="{{ route('taken.store', $item) }}" class="flex flex-1 flex-col md:flex-row gap-2">
                         @csrf
-                        <input type="text" name="reason" placeholder="Reason" class="border px-2 py-1 w-full md:w-1/2" />
+                        <input type="text" name="reason" placeholder="Reason" class="border px-2 py-1 w-full @error('reason') is-invalid @enderror" />
                         <div class="flex items-center gap-2 w-full md:w-auto justify-end">
-                            <input type="number" name="count" min="1" max="{{ $item->stock }}" value="1" class="border px-2 py-1 w-20" />
+                            <input type="number" name="count" min="1" value="1" class="border px-2 py-1 w-20 @error('count') is-invalid @enderror" />
                             <button type="submit" class="px-3 py-1 border bg-gray-100 hover:bg-gray-300 ">Take</button>
                         </div>
+
+                        @if ($errors->any())
+                            <div class="invalid-feedback d-block">
+                                {{ $errors->first() }}
+                            </div>
+                        @endif
+
+
                     </form>
 
                     @can('update', $item)
-                        {{-- Edit Button --}}
-                        <a href="{{ route('items.edit', $item->id) }}" class="px-3 py-1 border bg-gray-100 hover:bg-gray-300">Edit</a>
+                        <a href="{{ route('items.edit', $item) }}" class="px-3 py-1 border bg-gray-100 text-center hover:bg-gray-300">Edit</a>
 
-                        {{-- Delete Form --}}
                         <form method="POST" action="{{ route('items.destroy', $item) }}">
                             @csrf
                             @method('DELETE')
-                            <button class="px-3 py-1 border bg-gray-100 hover:bg-gray-300">Delete</button>
+                            <button class="px-3 py-1 border w-full bg-gray-100 hover:bg-gray-300">Delete</button>
                         </form>
                     @endcan
                     
@@ -63,9 +66,11 @@
     @endforeach
     </div>
 
-
-<div class="flex justify-center my-4">
-    {{ $items->links('vendor.pagination.custom-tailwind') }}
+<div class="flex justify-center my-4 ">
+    <div>
+        {{ $items->links('vendor.pagination.custom-tailwind') }}
+    </div>
+    <div class="w-[25px]"> </div>
 </div>
 
 </div>

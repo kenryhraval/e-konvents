@@ -1,58 +1,57 @@
-@vite('resources/css/app.css')
 <x-layouts.users>
-     <x-slot name="title">
+    <x-slot name="title">
         Create User
     </x-slot>
 
-    <x-slot name="sidebar">
-        User List
-        <a href="{{ route('users.create') }}">CREATE USER</a>
-    </x-slot>
+    <div class="container my-5">
+        <form method="POST" action="{{ route('users.store') }}" class="card shadow-sm p-4 bg-light rounded">
+            <h1 class="mb-4 text-2xl font-bold">Register User</h1>
 
-    <form method="POST" action="{{ route('users.store') }}">
-        <h1>Register</h1>
-        @csrf
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required value="{{ old('name') }}">
-        </div>
+            @csrf
 
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required value="{{ old('email') }}">
-        </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    required 
+                    value="{{ old('name') }}" 
+                    class="form-control @error('name') is-invalid @enderror">
+                @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
 
-        <div>
-            <label for="birthdate">Birthdate:</label>
-            <input type="date" id="birthdate" name="birthdate" value="{{ old('birthdate') }}">
-        </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    required 
+                    value="{{ old('email') }}" 
+                    class="form-control @error('email') is-invalid @enderror">
+                @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
 
-        {{-- <div>
-            <label>Roles:</label>
-            @foreach($roles as $role)
-                <div>
-                    <input 
-                        type="checkbox" 
-                        id="role_{{ $role->id }}" 
-                        name="roles[]" 
-                        value="{{ $role->id }}"
-                        {{ in_array($role->id, old('roles')) ? 'checked' : '' }}
-                    >
-                    <label for="role_{{ $role->id }}">{{ $role->name }}</label>
-                </div>
-            @endforeach
-        </div> --}}
+            <div class="mb-3">
+                <label for="birthdate" class="form-label">Birthdate</label>
+                <input 
+                    type="date" 
+                    id="birthdate" 
+                    name="birthdate" 
+                    value="{{ old('birthdate') }}" 
+                    class="form-control @error('birthdate') is-invalid @enderror">
+                @error('birthdate')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
 
-        <button type="submit">Register</button>
-    </form>
+            <button type="submit" class="btn btn-success">Register</button>
+        </form>
 
-    @if ($errors->any())
-        <div class="errors">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    </div>
 </x-layouts.users>

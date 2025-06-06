@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Duty extends Model
 {
     protected $fillable = [
-        'type',
+        'details',
         'event_id',
         'user_id'
     ];

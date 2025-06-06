@@ -61,5 +61,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
+    // Add this to `resources/js/app.js`
+    window.toggleForm = function(show) {
+        const form = document.getElementById('createForm');
+        const btnWrapper = document.getElementById('createBtnWrapper');
+
+        if (!form || !btnWrapper) return;
+
+        if (show) {
+            form.classList.remove('hidden');
+            btnWrapper.classList.add('hidden');
+        } else {
+            form.classList.add('hidden');
+            btnWrapper.classList.remove('hidden');
+        }
+    }
+
 });
 
