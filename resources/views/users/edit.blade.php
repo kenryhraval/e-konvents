@@ -76,13 +76,8 @@
                 </div>
             </div>
 
-            @php
-                $adminRoles = ['admin', 'item', 'event'];
-                $positionOptions = ['kr!', 'com!', 'fil!', 'b!fil!', 'kasieris', 'ekonoms', 'sekretārs', 'oldermanis', 'seniors', 'mag! cant!', 'mag! pauk!' , 'major domus'];
-            @endphp
-
             <div class="d-flex gap-5 mb-3 ">
-                <div>
+                <div class="w-[250px]">
                     <label class="form-label">Admin Roles</label>
                     @foreach ($adminRoles as $role)
                         <div class="form-check">
@@ -100,23 +95,24 @@
                 </div>
 
                 <div>
-            <label class="form-label">Positions</label>
-            <div class="d-flex flex-wrap gap-0">
-                @foreach ($positionOptions as $pos)
-                    <div class="form-check w-[120px]">
-                        <input class="form-check-input p-2"
-                            type="checkbox"
-                            name="positions[]"
-                            value="{{ $pos }}"
-                            id="position_{{ $loop->index }}"
-                            {{ in_array($pos, old('positions', $user->positions->pluck('type')->toArray())) ? 'checked' : '' }}>
-                        <label class="form-check-label" for="position_{{ $loop->index }}">
-                            {{ $pos }}
-                        </label>
+                    <label class="form-label">Positions</label>
+                    <div class="d-flex flex-wrap gap-0">
+                        @foreach ($roleTypes as $roleType)
+                            <div class="form-check w-[140px]">
+                                <input class="p-2" type="checkbox"
+                                    name="positions[]"
+                                    value="{{ $roleType->id }}"
+                                    id="position_{{ $roleType->id }}"
+                                    {{ in_array($roleType->id, old('positions', $user->positions->pluck('role_type_id')->toArray())) ? 'checked' : '' }}>
+                                
+                                <label for="position_{{ $roleType->id }}">
+                                    {{ $roleType->name }}
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
-        </div>
+                </div>
+
 
             </div>
 

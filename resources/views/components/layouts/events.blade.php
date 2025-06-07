@@ -2,20 +2,62 @@
 
 <x-layouts.base :title="$title">
     <x-slot name="sidebar">
-        <h3 class="font-semibold text-center pb-0 mb-0">Events Listed</h3>
 
+        <div class="!px-6">
+        <h3 class="font-semibold text-center pb-4">{{__('Events Listed')}}</h3>
 
-        @can('create', \App\Models\Event::class)
-        <div class="!px-6 pb-2">
-            <a href="{{ route('items.create') }}" class="btn btn-secondary w-full mt-5">Managed Events</a>
-            <a href="{{ route('items.create') }}" class="btn btn-secondary w-full mt-2">New Login Code</a>
+        <form method="GET" action="{{ route('events.index') }}" id="filterForm" class="flex flex-col gap-2">
+
+            <div class="d-flex gap-1 flex-wrap justify-end">
+                <input 
+                type="date" 
+                name="start_date" 
+                value="{{ request('start_date') }}" 
+                class="border px-2 py-1 w-[49%] sm:w-full"
+                />
+
+                <input 
+                    type="date" 
+                    name="end_date" 
+                    value="{{ request('end_date') }}" 
+                    class="border px-2 py-1 w-[49%] sm:w-full"
+                />
+            </div>
+            
             
 
+            <button type="submit" class="retro-button">{{__('Filter Interval')}}</button>
+
+            <input 
+                type="checkbox" 
+                class="btn-check" 
+                value="1" 
+                name="managed" 
+                id="managedCheckbox" 
+                {{ request()->boolean('managed') ? 'checked' : '' }}
+            />
+            <label class="btn btn-outline-primary w-full" for="managedCheckbox">{{__('Managed by me')}}</label>
+
+            <input 
+                type="checkbox" 
+                class="btn-check" 
+                value="1" 
+                name="with_duties" 
+                id="dutiesCheckbox" 
+                {{ request()->boolean('with_duties') ? 'checked' : '' }}
+            />
+            <label class="btn btn-outline-primary w-full" for="dutiesCheckbox">{{__('With my duties')}}</label>
+
+            
+        </form>
+
+        @can('create', \App\Models\Event::class)            
+
             <!-- Create Button -->
-            <div id="createBtnWrapper">
+            <div id="createBtnWrapper" class="mt-4">
                 <button 
                     onclick="toggleForm(true)" 
-                    class="btn btn-secondary w-full mt-2">
+                    class="btn btn-secondary w-full mt-2 ">
                     Create Event
                 </button>
             </div>
@@ -24,7 +66,7 @@
             <!-- Form -->
             <div 
                 id="createForm" 
-                class="hidden my-4 bg-white border border-gray-300 w-full"
+                class="hidden my-5 bg-white border border-gray-300 w-full"
             >
                 <div class="flex justify-between items-center bg-gray-100 px-4 py-2 border-b border-gray-300">
                     <span class="text-sm font-semibold text-gray-700">Create Event</span>
@@ -39,13 +81,13 @@
 
                 <form 
                     method="POST" 
-                    action="{{ route('items.store') }}" 
+                    action="{{ route('events.store') }}" 
                     class="p-4"
                 >
                     @csrf
 
                     <div class="mb-3">
-                        <label for="name" class="form-label">Event Name</label>
+                        <label for="name" class="form-label">{{__('Event Name')}}</label>
                         <input 
                             type="text" 
                             name="name" 
@@ -59,12 +101,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea 
+                        <label for="description" class="form-label">{{__('Description')}}</label>
+                        <textarea  
                             name="description" 
                             id="description" 
                             required 
-                            class="form-control h-16 resize-none @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
+                            class="form-control h-8 resize-none @error('description') is-invalid @enderror">
+                            {{ old('description') }}
+                        </textarea>
                         @error('description')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -75,7 +119,7 @@
                     @endphp
 
                     <div class="mb-3">
-                        <label for="dresscode" class="form-label">Dresscode</label>
+                        <label for="dresscode" class="form-label">{{__('Dresscode')}}</label>
                         <select 
                             name="dresscode" 
                             id="dresscode" 
@@ -94,7 +138,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="datetime" class="form-label">Event Date & Time</label>
+                        <label for="datetime" class="form-label">{{__('Event Date & Time')}}</label>
                         <input 
                             type="datetime-local" 
                             name="datetime" 
@@ -108,7 +152,7 @@
                     </div>
 
                     <div class="text-end">
-                        <button type="submit" class="btn btn-success w-full">Register</button>
+                        <button type="submit" class="btn btn-success w-full">{{__('Register')}}</button>
                     </div>
                 </form>
             </div>

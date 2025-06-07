@@ -24,7 +24,8 @@ class LoginController extends Controller
 
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
-            return redirect()->route('events.index')->with('success', 'Logged in!');  //->intended
+            return redirect()->intended(route('events.index'))->with('success', 'Logged in!');
+
         }
 
         throw ValidationException::withMessages([

@@ -5,7 +5,7 @@
 
         <div class="!px-6">
 
-            <h3 class="font-semibold text-center pb-4">The Inventory</h3>
+            <h3 class="font-semibold text-center pb-4"> {{__('The Inventory')}}</h3>
 
             <form method="GET" action="{{ route('items.index') }}" id="filterForm" class="flex flex-col gap-2">
                 <input 
@@ -16,7 +16,7 @@
                     class="border px-2 py-1 w-full"
                 />
 
-                <button type="submit" class="btn btn-primary w-full">Search</button>
+                <button type="submit" class="retro-button"> {{__('Search')}}</button>
 
                 <input type="checkbox" 
                     class="btn-check" 
@@ -25,31 +25,31 @@
                     id="sortCheckbox" 
                     {{ request()->boolean('sorted') ? 'checked' : '' }}
                 />
-                <label class="btn btn-outline-primary w-full" for="sortCheckbox">Sort by price</label>
+                <label class="btn btn-outline-primary w-full" for="sortCheckbox"> {{__('Sort by price')}}</label>
             </form>
         </div>
 
         @can('create', \App\Models\Item::class)
-        <div class="!px-6 pb-2">
-            <a href="{{ route('items.create') }}" class="btn btn-secondary w-full mt-2">Taken Items</a>
-            <a href="{{ route('items.create') }}" class="btn btn-secondary w-full mt-2">Restrict User</a>
+        <div class="!px-6 py-4">
+            <a href="{{ route('taken.index') }}" class="btn btn-secondary w-full mt-2"> {{__('Taken Items')}}</a>
+            <a href="{{ route('roles.index') }}" class="btn btn-secondary w-full mt-2"> {{__('Restrictions')}}</a>
 
             <!-- Create Button -->
-            <div id="createBtnWrapper" class="hidden">
+            <div id="createBtnWrapper" class="">
                 <button 
                     onclick="toggleForm(true)" 
                     class="btn btn-secondary w-full mt-2">
-                    Create Item
+                     {{__('Create Item')}}
                 </button>
             </div>
         </div>
             <!-- Form -->
             <div 
                 id="createForm" 
-                class=" mt-4 bg-white border border-gray-300 w-full"
+                class="hidden mt-4 bg-white border border-gray-300 w-full"
             >
                 <div class="flex justify-between items-center bg-gray-100 px-4 py-2 border-b border-gray-300">
-                    <span class="text-sm font-semibold text-gray-700">Create Item</span>
+                    <span class="text-sm font-semibold text-gray-700">{{__('Create Item')}}</span>
                     <button 
                         onclick="toggleForm(false)" 
                         class="text-gray-500 hover:text-red-500 text-2xl leading-none font-bold"
@@ -67,7 +67,7 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="name" class="form-label">Item Name</label>
+                        <label for="name" class="form-label"> {{__('Item Name')}}</label>
                         <input 
                             type="text" 
                             name="name" 
@@ -81,7 +81,7 @@
                     </div>   
 
                     <div class="mb-3">
-                        <label for="price" class="form-label">Item Price</label>
+                        <label for="price" class="form-label"> {{__('Item Price')}}</label>
                         <input 
                             type="number" 
                             name="price" 
@@ -95,7 +95,7 @@
                     </div>   
 
                     <div class="text-end">
-                        <button type="submit" class="btn btn-success w-full">Register</button>
+                        <button type="submit" class="btn btn-success w-full"> {{__('Register')}}</button>
                     </div>
                 </form>
             </div>

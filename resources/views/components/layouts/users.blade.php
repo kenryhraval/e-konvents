@@ -2,13 +2,45 @@
 
 <x-layouts.base :title="$title">
     <x-slot name="sidebar">
-        <div class="p-8 pb-1">
-            <h3 class="font-semibold text-center">Every Member</h3>
+        <div class="!px-6">
+            <div class="p-8">
+                <h3 class="font-semibold text-center">Every Member</h3>
+            </div>
+            <form method="GET" action="{{ route('users.index') }}" id="filterForm" class="flex flex-col gap-2">
+                <input 
+                type="text" 
+                name="search" 
+                placeholder="Search users..." 
+                    value="{{ request('search') }}" 
+                    class="border px-2 py-1 w-full mt-4"
+                />
+
+                <div class="d-flex flex-wrap gap-0">
+                    @foreach(\App\Models\RoleType::all() as $roleType)
+                        <div class="flex items-center space-x-2 gap-1 w-[100px]">
+                            <input class="p-2"
+                                type="checkbox" 
+                                name="role_types[]" 
+                                value="{{ $roleType->id }}" 
+                                id="role-{{ $roleType->id }}"
+                                {{ in_array($roleType->id, request()->input('role_types', [])) ? 'checked' : '' }}
+                            />
+                            <label for="role-{{ $roleType->id }}">{{ $roleType->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
+
+
+                <button type="submit" class="retro-button">Apply Filters</button>
+
+            </form>
         </div>
+
+        
 
         @can('create', \App\Models\User::class)
             <!-- Create Button -->
-            <div class="p-4" id="createBtnWrapper">
+            <div class="p-4 " id="createBtnWrapper">
                 <button 
                     onclick="toggleForm(true)" 
                     class="btn btn-secondary w-full mt-1">
@@ -19,7 +51,7 @@
             <!-- Form -->
             <div 
                 id="createForm" 
-                class="hidden my-4 bg-white border border-gray-300 w-full"
+                class="hidden my-5 mb-4 bg-white border border-gray-300 w-full"
             >
                 <div class="flex justify-between items-center bg-gray-100 px-4 py-2 border-b border-gray-300">
                     <span class="text-sm font-semibold text-gray-700">Create User</span>

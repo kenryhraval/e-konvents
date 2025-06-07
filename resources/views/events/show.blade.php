@@ -72,7 +72,7 @@
             </div>
 
             <div class="card-footer d-flex justify-content-between align-items-center">
-                <a href="{{ route('events.index') }}" class="btn btn-secondary">
+                <a href="{{ route('events.index') }}" class="btn btn-secondary w-fill lg:w-[100px]">
                     ← Back
                 </a>
                 
@@ -82,29 +82,29 @@
                             $userAbsence = $event->absences->firstWhere('user_id', auth()->id());
                         @endphp
 
-                        <button class="btn btn-outline-warning"
+                        <button class="btn btn-outline-warning w-fill lg:w-[100px]"
                                 onclick="document.getElementById('absence-form').classList.toggle('d-none')">
                             {{ $userAbsence ? 'Edit Absence' : 'Mark Absence' }}
                         </button>
                     @endcannot
 
-                    <button class="btn btn-outline-info" onclick="document.getElementById('attendees-list').scrollIntoView({ behavior: 'smooth' });">
+                    <button class="btn btn-outline-info w-fill lg:w-[100px]" onclick="document.getElementById('attendees-list').scrollIntoView({ behavior: 'smooth' });">
                         Attendees
                     </button>
 
                     @can('update', $event)
-                        <button class="btn btn-outline-warning" onclick="document.getElementById('absences-list').scrollIntoView({ behavior: 'smooth' });">
+                        <button class="btn btn-outline-warning w-fill lg:w-[100px]" onclick="document.getElementById('absences-list').scrollIntoView({ behavior: 'smooth' });">
                             Absences
                         </button>
 
-                        <a href="{{ route('events.edit', $event) }}" class="btn btn-outline-primary">
+                        <a href="{{ route('events.edit', $event) }}" class="btn btn-outline-primary w-fill lg:w-[100px]">
                             Edit
                         </a>
 
                         <form method="POST" action="{{ route('events.destroy', $event) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-outline-danger">
+                            <button type="submit" class="btn btn-outline-danger w-fill lg:w-[100px]">
                                 Delete
                             </button>
                         </form>

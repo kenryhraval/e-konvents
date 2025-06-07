@@ -22,6 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
     sortCheckbox?.addEventListener('change', () => {
         document.getElementById('filterForm').submit();
     });
+     // Auto-submit on checkbox change
+    const managedCheckbox = document.getElementById('managedCheckbox');
+    managedCheckbox?.addEventListener('change', () => {
+        document.getElementById('filterForm').submit();
+    });
+     // Auto-submit on checkbox change
+    const dutiesCheckbox = document.getElementById('dutiesCheckbox');
+    dutiesCheckbox?.addEventListener('change', () => {
+        document.getElementById('filterForm').submit();
+    });
 
     
     $(".login-form-inner").validate({
@@ -61,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Add this to `resources/js/app.js`
     window.toggleForm = function(show) {
         const form = document.getElementById('createForm');
         const btnWrapper = document.getElementById('createBtnWrapper');
@@ -76,6 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
             btnWrapper.classList.remove('hidden');
         }
     }
+
+    
 
 });
 

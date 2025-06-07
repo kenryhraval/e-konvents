@@ -12,9 +12,29 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::orderBy('datetime', 'asc')->get();
+
+        $user = Auth::user();
+
+        $events = Event::query()
+            ->when($request->boolean('managed'), fn($query) =>
+                $query->where('user_id', $user->id)
+            )
+            ->when($request->boolean('with_duties'), fn($query) =>
+                $query->whereHas('duties', fn($q) =>
+                    $q->where('user_id', $user->id)
+                )
+            )
+            ->when($request->start_date, fn($query) =>
+                $query->whereDate('datetime', '>=', $request->start_date)
+            )
+            ->when($request->end_date, fn($query) =>
+                $query->whereDate('datetime', '<=', $request->end_date)
+            )
+             ->orderBy('datetime', 'asc')
+            ->get();
+
         return view('events.index', ['events' => $events]);
     }
 

@@ -70,4 +70,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Position::class);
     }
+
+    public function roleTypes()
+    {
+        return $this->hasManyThrough(RoleType::class, Position::class, 'user_id', 'id', 'id', 'role_type_id');
+    }
+
+    public function maxRoleBalanceLimit(): float
+    {
+        return $this->roleTypes()->max('min_balance') ?? -50;
+    }
+
 }

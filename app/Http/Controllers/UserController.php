@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 
 use App\Models\User;
+use App\Models\RoleType;
 use App\Mail\PasswordMail;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,10 +17,25 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return view('users.index', ['users' => $users]);
+
+        $query = User::query();
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('role_types')) {
+            $query->whereHas('positions', function ($q) use ($request) {
+                $q->whereIn('role_type_id', $request->role_types);
+            });
+        }
+
+
+        
+        $users = $query->paginate(20);
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -67,7 +83,10 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('users.edit', ['user' => $user]);
+        $roleTypes = RoleType::orderBy('name')->get();
+        $adminRoles = ['admin', 'item', 'event'];
+
+        return view('users.edit', compact('user', 'roleTypes', 'adminRoles'));
     }
 
     public function update(Request $request, User $user)
@@ -81,7 +100,7 @@ class UserController extends Controller
             'admin_types' => 'nullable|array',
             'admin_types.*' => 'in:admin,item,event,base',
             'positions' => 'array',
-            'positions.*' => 'string|max:15',
+            'positions.*' => 'exists:role_types,id',
         ]);
 
         $userData = $request->only(['name', 'email', 'phone_number', 'address', 'balance']);
@@ -95,7 +114,6 @@ class UserController extends Controller
         // Update admin roles
         // First delete old ones:
         $user->admins()->delete();
-
         // Then insert new ones if present:
         if (!empty($request['admin_types'])) {
             foreach ($request['admin_types'] as $type) {
@@ -106,12 +124,12 @@ class UserController extends Controller
         // Update Positions
         $user->positions()->delete();
         if (!empty($request['positions'])) {
-            foreach ($request['positions'] as $position) {
-                $user->positions()->create(['type' => $position]);
+            foreach ($request['positions'] as $roleTypeId) {
+                $user->positions()->create(['role_type_id' => $roleTypeId]);
             }
         }
 
-        return redirect()->route('users.index')->with('success', 'User updated!'); //->intended()
+        return redirect()->route('users.show', $user)->with('success', 'User updated!');
     }
 
     // Delete a user (admin only)

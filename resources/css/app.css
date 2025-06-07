@@ -60,11 +60,11 @@ a {
 } 
 
 .navbar ul {
-    @apply flex flex-row items-center justify-evenly h-full list-none p-0 m-0;
+    @apply flex flex-row items-center justify-end h-full list-none p-0 m-0;
 }
 
-.navbar li {
-    @apply flex items-center h-full;
+.navbar li, .navbar button {
+    @apply flex items-center h-full uppercase;
 }
 
 .navbar h1 {
@@ -99,6 +99,34 @@ input, textarea {
     @apply rounded-md px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-transparent text-gray-900;
 }
 
+.retro-button {
+  background: linear-gradient(to bottom, #e0e0e0 0%, #a0a0a0 100%);
+  border: 2px solid #666;
+  border-top-color: #fff;   
+  border-left-color: #fff;
+  border-radius: 4px;
+  box-shadow:
+    inset 2px 2px 0 #fff, 
+    inset -2px -2px 0 #666; 
+  color: #000;
+  font-weight: bold;
+  padding: 0.5em 1.2em;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.1s ease;
+}
+
+.retro-button:active {
+  background: linear-gradient(to bottom, #a0a0a0 0%, #e0e0e0 100%);
+  box-shadow:
+    inset -2px -2px 0 #fff,
+    inset 2px 2px 0 #666;
+  border-top-color: #666;
+  border-left-color: #666;
+  color: #111;
+  transform: translateY(1px);
+}
+
 
 
 @media (min-width: 769px) {
@@ -125,6 +153,6 @@ input, textarea {
 
 @media (min-width: 1400px) {
     .main {
-        @apply p-40 pt-30 m-0 px-45;
+        @apply p-40 pt-30 m-0 px-34;
     }
 }
