@@ -1,6 +1,6 @@
 <x-layouts.events>
     <x-slot name="title">
-        Events Display
+        {{__('Events Display')}}
     </x-slot>
 
     <div class="container my-5">
@@ -11,16 +11,16 @@
 
             <div class="card-body">
                 <p class="mb-3">
-                    <strong>Description:</strong><br>
+                    <strong>{{__('Description')}}:</strong><br>
                     {{ $event->description }}
                 </p>
 
-                <p><strong>Dresscode:</strong> {{ $event->dresscode }}</p>
+                <p><strong>{{__('Dresscode')}}:</strong> {{ $event->dresscode }}</p>
 
-                <p><strong>Date and Time:</strong> {{ $event->datetime->format('d.m.Y H:i') }}</p>
+                <p><strong>{{__('Date and Time')}}:</strong> {{ $event->datetime->format('d.m.Y H:i') }}</p>
 
                 <p>
-                    <strong>Organizer:</strong>
+                    <strong>{{__('Organizer')}}:</strong>
                     <a href="{{ route('users.show', $event->user_id) }}" class="text-decoration-underline">
                         {{ $event->organizer->name ?? 'Unknown' }}
                     </a>
@@ -29,14 +29,14 @@
                 {{-- Duties List --}}
                 @if ($event->duties->isNotEmpty())
                     <div class="mt-4">
-                        <h5 class="mb-2">Assigned Duties</h5>
-                        <table class="table table-bordered w-100" style="table-layout: fixed;">
+                        <h5 class="mb-2">{{__('Assigned Duties')}}</h5>
+                        <table class="table table-bordered  table-fixed">
                             <thead>
                                 <tr>
-                                    <th>Member</th>
-                                    <th>Duty</th>
+                                    <th>{{__('Member')}}</th>
+                                    <th>{{__('Duty')}}</th>
                                     @can('update', $event)
-                                        <th class="w-[20%]">Delete</th>
+                                        <th class="w-[20%]">{{__('Delete')}}</th>
                                     @endcan
                                 </tr>
                             </thead>
@@ -45,7 +45,7 @@
                                     <tr>
                                         <td>
                                             <a href="{{ route('users.show', $duty->user_id) }}">
-                                                {{ $duty->user->name ?? 'Unknown' }}
+                                                {{ $duty->user->name}}
                                             </a>
                                         </td>
                                         <td>{{ $duty->details }}</td>
@@ -54,7 +54,9 @@
                                             <form action="{{ route('duties.destroy', $duty->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Remove Duty">&times;</button>
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Remove Duty">
+                                                    &times;
+                                                </button>
                                             </form>
                                         </td>
                                         @endcan
@@ -65,7 +67,9 @@
 
                     </div>
                 @else
-                    <p><strong>No assigned duties...</strong></p>
+                    <p>
+                        <strong>{{__('No assigned duties...')}}</strong>
+                    </p>
                 @endif
 
 
@@ -73,7 +77,7 @@
 
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <a href="{{ route('events.index') }}" class="btn btn-secondary w-fill lg:w-[100px]">
-                    ← Back
+                    ← {{__('Back')}}
                 </a>
                 
                 <div class="d-flex gap-2">
@@ -84,28 +88,28 @@
 
                         <button class="btn btn-outline-warning w-fill lg:w-[100px]"
                                 onclick="document.getElementById('absence-form').classList.toggle('d-none')">
-                            {{ $userAbsence ? 'Edit Absence' : 'Mark Absence' }}
+                            {{ $userAbsence ? __('Edit Absence') : __('Mark Absence') }}
                         </button>
                     @endcannot
 
                     <button class="btn btn-outline-info w-fill lg:w-[100px]" onclick="document.getElementById('attendees-list').scrollIntoView({ behavior: 'smooth' });">
-                        Attendees
+                        {{__('Attendees')}}
                     </button>
 
                     @can('update', $event)
                         <button class="btn btn-outline-warning w-fill lg:w-[100px]" onclick="document.getElementById('absences-list').scrollIntoView({ behavior: 'smooth' });">
-                            Absences
+                            {{__('Absences')}}
                         </button>
 
                         <a href="{{ route('events.edit', $event) }}" class="btn btn-outline-primary w-fill lg:w-[100px]">
-                            Edit
+                            {{__('Edit')}}
                         </a>
 
                         <form method="POST" action="{{ route('events.destroy', $event) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-outline-danger w-fill lg:w-[100px]">
-                                Delete
+                                {{__('Delete')}}
                             </button>
                         </form>
                     @endcan
@@ -122,7 +126,7 @@
 
             <div id="absence-form" class="card mt-4 shadow-sm {{ $userAbsence ? '' : 'd-none' }}">
                 <div class="card-header bg-warning text-dark">
-                    <h5 class="mb-0">{{ $userAbsence ? 'Edit Absence' : 'Submit Absence' }}</h5>
+                    <h5 class="mb-0">{{ $userAbsence ? __('Edit Absence') : __('Submit Absence') }}</h5>
                 </div>
 
                 <div class="card-body">
@@ -133,10 +137,10 @@
                         @endif
 
                         <input type="hidden" name="event_id" value="{{ $event->id }}">
-                        <textarea name="reason" class="form-control mb-3" rows="3" placeholder="Reason for absence..." required>{{ old('reason', $userAbsence->reason ?? '') }}</textarea>
+                        <textarea name="reason" class="form-control mb-3" rows="3" placeholder="{{__('Reason for absence')}}" required>{{ old('reason', $userAbsence->reason ?? '') }}</textarea>
 
                         <button type="submit" class="btn btn-outline-warning  w-100">
-                            {{ $userAbsence ? 'Update Absence' : 'Submit Absence' }}
+                            {{ $userAbsence ? __('Update Absence') : __('Submit Absence') }}
                         </button>
                     </form>
 
@@ -145,7 +149,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-outline-danger w-100">
-                                Delete Absence
+                                {{__('Delete Absence')}}
                             </button>
                         </form>
                     @endif
@@ -157,7 +161,7 @@
         @can('update', $event)
             <div class="card shadow-sm mt-5">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Assign a Duty</h5>
+                    <h5 class="mb-0">{{__('Assign a Duty')}}</h5>
                 </div>
 
                 <div class="card-body">
@@ -166,9 +170,13 @@
                         <input type="hidden" name="event_id" value="{{ $event->id }}">
 
                         <div>
-                            <label for="user_id" class="form-label">User</label>
+                            <label for="user_id" class="form-label">
+                                {{__('User')}}
+                            </label>
                             <select name="user_id" id="user_id" class="form-select" required>
-                                <option value="">Select user</option>
+                                <option value="">
+                                    {{__('Select user')}}
+                                </option>
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}">
                                         {{ $user->name }} ({{ $user->email }})
@@ -178,18 +186,18 @@
                         </div>
 
                         <div>
-                            <label for="type" class="form-label">Duty Type</label>
-                            <input type="text" name="type" id="type" class="form-control" placeholder="e.g. Photographer" required>
+                            <label for="type" class="form-label">{{__('Duty Type')}}</label>
+                            <input type="text" name="type" id="type" class="form-control" placeholder="{{__('e.g. Photographer')}}" required>
                         </div>
 
-                        <button type="submit" class="btn btn-outline-success w-100">Assign Duty</button>
+                        <button type="submit" class="btn btn-outline-success w-100">{{__('Assign Duty')}}</button>
                     </form>
                 </div>
             </div>
 
             <div id="absences-list" class="card shadow-sm mt-5">
                 <div class="card-header bg-warning">
-                    <h5 class="mb-0">Absences</h5>
+                    <h5 class="mb-0">{{__('Absences')}}</h5>
                 </div>
 
                 <div class="card-body">
@@ -200,7 +208,7 @@
                                     <th>User</th>
                                     <th>Reason</th>
                                     <th>Submitted</th>
-                                    <th class="w-[20%]">Delete</th>
+                                    <th class="w-[20%]">{{__('Delete')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -211,8 +219,15 @@
                                                 {{ $absence->user->name }}
                                             </a>
                                         </td>
-                                        <td>{{ $absence->reason }}</td>
-                                        <td>{{ $absence->created_at->format('d.m.Y H:i') }}</td>
+
+                                        <td>
+                                            {{ $absence->reason }}
+                                        </td>
+
+                                        <td>
+                                            {{ $absence->created_at->format('d.m.Y H:i') }}
+                                        </td>
+
                                         <td>
                                             <form method="POST" action="{{ route('absences.destroy', $absence) }}">
                                                 @csrf
@@ -228,7 +243,7 @@
                         </table>
                     
                     @else
-                        <p class="mb-0 text-muted">No absences have been submitted.</p>
+                        <p class="mb-0 text-muted">{{__('No absences have been submitted.')}}</p>
                     @endif
                 </div>
             </div>
@@ -236,7 +251,9 @@
 
         <div id="attendees-list" class="card mt-5 shadow-sm">
             <div class="card-header bg-info d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Expected Attendees</h5>
+                <h5 class="mb-0">
+                    {{__('Expected Attendees')}}
+                </h5>
 
                 @can('update', $event)
                     <form action="{{ route('attendances.store') }}" method="POST">
@@ -255,7 +272,9 @@
 
                     @foreach ($expected as $user)
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a>
+                            <a href="{{ route('users.show', $user->id) }}">
+                                {{ $user->name }}
+                            </a>
 
                             @can('update', $event)
                                 <div class="form-check">
@@ -263,12 +282,12 @@
                                         id="attendee-{{ $user->id }}"
                                         {{ in_array($user->id, $attended) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="attendee-{{ $user->id }}">
-                                        Present
+                                        {{__('Present')}}
                                     </label>
                                 </div>
                             @else
                                 <span class="badge {{ in_array($user->id, $attended) ? 'bg-success' : 'bg-secondary' }}">
-                                    {{ in_array($user->id, $attended) ? 'Present' : 'Not marked' }}
+                                    {{ in_array($user->id, $attended) ? __('Present') : __('Not marked') }}
                                 </span>
                             @endcan
                         </li>
@@ -277,7 +296,7 @@
             
 
             @can('update', $event)
-            <button type="submit" class="btn btn-outline-info w-100 mt-3">Save Attendance</button>
+            <button type="submit" class="btn btn-outline-info w-100 mt-3">{{__('Save Attendance')}}</button>
             </form>
             @endcan
             </div>

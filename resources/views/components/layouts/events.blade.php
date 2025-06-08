@@ -8,7 +8,7 @@
 
         <form method="GET" action="{{ route('events.index') }}" id="filterForm" class="flex flex-col gap-2">
 
-            <div class="d-flex gap-1 flex-wrap justify-end">
+            <div class="p-4 bg-gradient-to-br from-blue-100 to-purple-200 rounded-xl shadow-md">
                 <input 
                 type="date" 
                 name="start_date" 
@@ -58,7 +58,7 @@
                 <button 
                     onclick="toggleForm(true)" 
                     class="btn btn-secondary w-full mt-2 ">
-                    Create Event
+                    {{__('Create Event')}}
                 </button>
             </div>
         </div>
@@ -69,7 +69,7 @@
                 class="hidden my-5 bg-white border border-gray-300 w-full"
             >
                 <div class="flex justify-between items-center bg-gray-100 px-4 py-2 border-b border-gray-300">
-                    <span class="text-sm font-semibold text-gray-700">Create Event</span>
+                    <span class="text-sm font-semibold text-gray-700">{{__('Create Event')}}</span>
                     <button 
                         onclick="toggleForm(false)" 
                         class="text-gray-500 hover:text-red-500 text-2xl leading-none font-bold"
@@ -125,7 +125,7 @@
                             id="dresscode" 
                             required 
                             class="form-select @error('dresscode') is-invalid @enderror">
-                            <option value="" disabled selected>Select a dresscode</option>
+                            <option value="" disabled selected>{{__('Select a dresscode')}}</option>
                             @foreach ($dresscodes as $dresscode)
                                 <option value="{{ $dresscode }}" {{ old('dresscode') == $dresscode ? 'selected' : '' }}>
                                     {{ $dresscode }}

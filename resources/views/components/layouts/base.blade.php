@@ -39,7 +39,7 @@
                         $labels = ['en' => 'EN', 'lv' => 'LV'];
                     @endphp
 
-                    <a href="{{ url('lang/' . $other) }}" class="text-black  text-3xl pe-5">
+                    <a href="{{ url('lang/' . $other) }}" class="!text-gray-500  text-3xl pe-5">
                         {{ $labels[$other] }}
                     </a>
                 </div>

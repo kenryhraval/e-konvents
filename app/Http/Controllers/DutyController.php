@@ -22,7 +22,7 @@ class DutyController extends Controller
         ]);
 
         return redirect()->route('events.show', $event)
-                        ->with('success', 'Duty assigned successfully.');
+                        ->with('success', __('Duty assigned successfully'));
     }
 
     public function destroy(Duty $duty)
@@ -31,7 +31,7 @@ class DutyController extends Controller
         $duty->delete();
 
         return redirect()->route('events.show', $event)
-                        ->with('success', 'Duty removed.');
+                        ->with('success', __('Duty removed'));
     }
 
 }

@@ -1,16 +1,16 @@
 <x-layouts.users>
     <x-slot name="title">
-        Create User
+        {{__('Create User')}}
     </x-slot>
 
     <div class="container my-5">
         <form method="POST" action="{{ route('users.store') }}" class="card shadow-sm p-4 bg-light rounded">
-            <h1 class="mb-4 text-2xl font-bold">Register User</h1>
+            <h1 class="mb-4 text-2xl font-bold">{{__('Register User')}}</h1>
 
             @csrf
 
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
+                <label for="name" class="form-label">{{__('Name')}}</label>
                 <input 
                     type="text" 
                     id="name" 
@@ -24,7 +24,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">{{__('Email')}}</label>
                 <input 
                     type="email" 
                     id="email" 
@@ -38,7 +38,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="birthdate" class="form-label">Birthdate</label>
+                <label for="birthdate" class="form-label">{{__('Birthdate')}}</label>
                 <input 
                     type="date" 
                     id="birthdate" 
@@ -50,7 +50,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-success">Register</button>
+            <button type="submit" class="btn btn-success">{{__('Register')}}</button>
         </form>
 
     </div>

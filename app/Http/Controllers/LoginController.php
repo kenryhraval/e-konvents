@@ -24,12 +24,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('events.index'))->with('success', 'Logged in!');
+            return redirect()->intended(route('events.index'))->with('success',  __('Logged in!'));
 
         }
 
         throw ValidationException::withMessages([
-            'email' => 'Sorry, incorrect credentials'
+            'email' => __('Sorry, incorrect credentials')
         ]);
     }
 

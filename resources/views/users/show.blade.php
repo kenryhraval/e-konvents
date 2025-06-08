@@ -3,13 +3,6 @@
         {{ $user->name }}
     </x-slot>
 
-    <x-slot name="sidebar">
-        <div class="mb-3">
-            <h5 class="fw-bold">User List</h5>
-            <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm mt-2">Create User</a>
-        </div>
-    </x-slot>
-
     <div class="container my-5">
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
@@ -18,54 +11,54 @@
 
             <div class="card-body">
                 <p class="mb-3">
-                    <strong>Email:</strong>
+                    <strong>{{__('Email')}}:</strong>
                     {{ $user->email }}
                 </p>
 
                 <p class="mb-3">
-                    <strong>Phone:</strong>
+                    <strong>{{__('Phone')}}:</strong>
                     {{ $user->phone_number ?? 'N/A' }}
                 </p>
 
                 <p class="mb-3">
-                    <strong>Address:</strong>
+                    <strong>{{__('Address')}}:</strong>
                     {{ $user->address ?? 'N/A' }}
                 </p>
 
                 <p class="mb-3">
-                    <strong>Birthdate:</strong>
+                    <strong>{{__('Birthdate')}}:</strong>
                     {{ $user->birthdate ? $user->birthdate->format('Y-m-d') : 'N/A' }}
                 </p>
 
                 <p class="mb-3">
-                    <strong>Balance:</strong>
+                    <strong>{{__('Balance')}}:</strong>
                     {{ number_format($user->balance, 2) }} €
                 </p>
 
                 <p class="mb-3">
-                    <strong>Points:</strong>
+                    <strong>{{__('Points')}}:</strong>
                     {{ $user->points }}
                 </p>
 
                 <p>
-                    <strong>Position:</strong>
+                    <strong>{{__('Position')}}:</strong>
                     @forelse ($user->positions as $position)
                         <span class="me-1">{{ $position->type }}</span>
                     @empty
-                        <span class="text-muted">No positions assigned</span>
+                        <span class="text-muted">{{__('No positions assigned')}}</span>
                     @endforelse
                 </p>
             </div>
 
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <a href="{{ route('users.index') }}" class="btn btn-secondary">
-                    ← All Users
+                    ← {{__('All Users')}}
                 </a>
 
                 <div class="d-flex gap-2">
                 @can('update', $user, \App\Models\User::class)
                     <a href="{{ route('users.edit', $user) }}" class="btn btn-outline-primary">
-                        Edit User
+                        {{__('Edit User')}}
                     </a>
                 @endcan
                 
@@ -74,7 +67,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger">
-                            Delete
+                            {{__('Delete')}}
                         </button>
                     </form>
                 @endcan

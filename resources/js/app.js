@@ -33,21 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('filterForm').submit();
     });
 
-    
     $(".login-form-inner").validate({
         rules: {
             email: { required: true, email: true },
             password: { required: true }
         },
-        messages: {
-            email: {
-                required: "Norādiet e-pastu...",
-                email: "Nekorekts e-pasts."
-            },
-            password: {
-                required: "Norādiet paroli..."
-            }
-        },
+        messages: window.loginValidationMessages || {},
         
         errorPlacement: function(error, element) {
             element.siblings('.invalid-feedback').text(error.text()).show();
@@ -85,8 +76,5 @@ document.addEventListener('DOMContentLoaded', () => {
             btnWrapper.classList.remove('hidden');
         }
     }
-
-    
-
 });
 

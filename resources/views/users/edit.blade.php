@@ -1,7 +1,7 @@
 @vite('resources/css/app.css')
 <x-layouts.users>
-     <x-slot name="title">
-        Edit Profile
+    <x-slot name="title">
+        {{__('Edit Profile')}}
     </x-slot>
 
     <form method="POST" action="{{ route('users.update', $user) }}" class="card shadow-sm p-4 bg-light rounded">
@@ -10,7 +10,7 @@
             @method('PUT')
 
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">{{__('Email')}}</label>
                 <input type="email" name="email" id="email"
                     value="{{ old('email', $user->email) }}"
                     required
@@ -23,10 +23,12 @@
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">{{__('Password')}}</label>
                 <input type="password" name="password" id="password"
                     class="form-control @error('password') is-invalid @enderror">
-                <small class="form-text text-muted">If you want to change the password, enter it here.</small>
+                <small class="form-text text-muted">
+                    {{__('If you want to change the password, enter it here.')}}
+                </small>
                 <div class="invalid-feedback">
                     @error('password')
                         {{ $message }}
@@ -35,13 +37,13 @@
             </div>
 
             <div class="mb-3">
-                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                <label for="password_confirmation" class="form-label">{{__('Confirm Password')}}</label>
                 <input type="password" name="password_confirmation" id="password_confirmation"
                     class="form-control">
             </div>
 
             <div class="mb-3">
-                <label for="phone_number" class="form-label">Phone</label>
+                <label for="phone_number" class="form-label">{{__('Phone')}}</label>
                 <input type="text" name="phone_number" id="phone_number"
                     value="{{ old('phone_number', $user->phone_number) }}"
                     class="form-control @error('phone_number') is-invalid @enderror">
@@ -53,7 +55,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
+                <label for="address" class="form-label">{{__('Address')}}</label>
                 <input type="text" name="address" id="address"
                     value="{{ old('address', $user->address) }}"
                     class="form-control @error('address') is-invalid @enderror">
@@ -65,7 +67,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="balance" class="form-label">Balance</label>
+                <label for="balance" class="form-label">{{__('Balance')}}</label>
                 <input type="number" name="balance" id="balance" step="0.01"
                     value="{{ old('balance', $user->balance) }}"
                     class="form-control @error('balance') is-invalid @enderror">
@@ -78,7 +80,7 @@
 
             <div class="d-flex gap-5 mb-3 ">
                 <div class="w-[250px]">
-                    <label class="form-label">Admin Roles</label>
+                    <label class="form-label">{{__('Admin Roles')}}</label>
                     @foreach ($adminRoles as $role)
                         <div class="form-check">
                             <input class="form-check-input p-2"
@@ -95,7 +97,7 @@
                 </div>
 
                 <div>
-                    <label class="form-label">Positions</label>
+                    <label class="form-label">{{__('Positions')}}</label>
                     <div class="d-flex flex-wrap gap-0">
                         @foreach ($roleTypes as $roleType)
                             <div class="form-check w-[140px]">
@@ -121,7 +123,7 @@
 
            
 
-            <button type="submit" class="btn btn-success">Update User</button>
+            <button type="submit" class="btn btn-success">{{__('Update User')}}</button>
         </form>
 
 </x-layouts.users>

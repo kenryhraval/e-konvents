@@ -1,6 +1,8 @@
 @vite('resources/css/app.css')
 <x-layouts.items>
-    <x-slot name="title">Manage Roles</x-slot>
+    <x-slot name="title">
+        {{__('Roles')}}
+    </x-slot>
 
     <div class="container w-[100%] mx-auto p-0 my-5">
 
@@ -11,10 +13,16 @@
             <table class="w-full border border-gray-300 text-sm text-center">
                 <thead class="bg-gray-100 text-gray-700 uppercase tracking-wider">
                     <tr>
-                        <th class="border px-4 py-2">Role Name</th>
-                        <th class="border px-4 py-2">Min Balance</th>
+                        <th class="border px-4 py-2">
+                            {{__('Role name')}}
+                        </th>
+                        <th class="border px-4 py-2">
+                            {{__('Min balance')}}
+                        </th>
                         @can('create', \App\Models\Item::class)
-                            <th class="border px-4 py-2">Actions</th>
+                            <th class="border px-4 py-2">
+                                {{__('Actions')}}
+                            </th>
                         @endcan
                     </tr>
                 </thead>
@@ -32,14 +40,18 @@
                         </td>
                         <td class="border px-4 py-2">
                                 <div class="flex gap-2 justify-center">
-                                    <button type="submit" class="btn btn-sm btn-outline-success w-[100px] px-4">Save</button>
+                                    <button type="submit" class="btn btn-sm btn-outline-success w-[100px] px-4">
+                                        {{__('Save')}}
+                                    </button>
                             </form>
 
                             @can('create', \App\Models\User::class)
                             <form method="POST" action="{{ route('roles.destroy', $role) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button onclick="return confirm('Delete this role?')" type="submit" class="w-[100px] btn btn-sm btn-outline-danger px-4">Delete</button>
+                                <button type="submit" class="w-[100px] btn btn-sm btn-outline-danger px-4">
+                                    {{__('Delete')}}
+                                </button>
                             </form>
                             @endcan
                                 </div>
@@ -49,23 +61,28 @@
                 </tbody>
             </table>
         </div>
+
         @else
         <div class="flex justify-center items-center h-40 max-w-3xl mx-auto">
-            <h3 class="italic text-gray-600 text-lg">No roles found</h3>
+            <h3 class="italic text-gray-600 text-lg">
+                {{__('No roles found')}}
+            </h3>
         </div>
         @endif
 
         {{-- Add Role Form --}}
 
         <div class="flex justify-center items-center py-4">
-            <h3 class="text-md">Add Role</h3>
+            <h3 class="text-md">
+                {{__('Add Role')}}
+            </h3>
         </div>
         <form method="POST" action="{{ route('roles.store') }}" class="mb-6 flex gap-3 max-w-3xl mx-auto">
             @csrf
             <input 
                 type="text" 
                 name="name" 
-                placeholder="Role name" 
+                placeholder="{{__('Role name')}}" 
                 class="input input-bordered flex-1" 
                 required 
             >
@@ -73,7 +90,7 @@
                 type="number" 
                 step="0.01" 
                 name="min_balance" 
-                placeholder="Min balance" 
+                placeholder="{{__('Min balance')}}" 
                 class="input input-bordered w-48" 
                 required
             >

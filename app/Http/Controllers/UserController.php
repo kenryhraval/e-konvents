@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
 
@@ -73,7 +70,7 @@ class UserController extends Controller
 
         // $user->roles()->sync($request->roles);
     
-        return redirect()->route('users.index')->with('success', 'User registered!');
+        return redirect()->route('users.index')->with('success', __('User registered'));
     }
 
     public function show(User $user)
@@ -129,7 +126,7 @@ class UserController extends Controller
             }
         }
 
-        return redirect()->route('users.show', $user)->with('success', 'User updated!');
+        return redirect()->route('users.show', $user)->with('success', __('User updated'));
     }
 
     // Delete a user (admin only)
@@ -137,6 +134,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'User deleted!');
+        return redirect()->route('users.index')->with('success', __('User deleted'));
     }
 }

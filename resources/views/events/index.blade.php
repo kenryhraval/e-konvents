@@ -2,7 +2,7 @@
 
 <x-layouts.events>
     <x-slot name="title">
-        Events
+        {{__('Events')}}
     </x-slot>
 
 <div class="relative max-w-full py-5">
@@ -48,16 +48,21 @@
                         alt="Event image for {{ $event->name }}" />
                 
                     <div class="p-5">
-                        <h5 class="mb-3 h-[80px] text-2xl font-bold tracking-tight text-gray-900">{{ Str::limit($event->name, 40) }}</h5>
-                        <p class="mb-3 font-normal text-gray-700">{{ $event->datetime->format('jS \\o\\f F, H:i') }}</p>
-                        <p class="mb-3 font-semibold text-gray-800">Dresscode:
+                        <h5 class="mb-3 h-[80px] text-2xl font-bold tracking-tight text-gray-900">
+                            {{ Str::limit($event->name, 40) }}
+                        </h5>
+                        <p class="mb-3 font-normal text-gray-700">
+                            {{ $event->datetime->format('jS \\o\\f F, H:i') }}
+                        </p>
+                        <p class="mb-3 font-semibold text-gray-800">
+                            {{__('Dresscode')}}:
                             <span class="italic">{{ ucfirst($event->dresscode) }}</span>
                         </p>
 
                         @if ($userDuty)
                         <div class="mt-4">
                             <p class="font-semibold text-blue-800 mb-1">
-                                Your role: <i>"{{ $userDuty->details }} </i>"
+                                {{__('Your role')}}: <i>"{{ $userDuty->details }} </i>"
                             </p>
                         </div>
                     @endif
@@ -72,12 +77,15 @@
     
     @else
     <div class="flex justify-center items-center h-40">
-        <h3 class="italic text-gray-600 text-lg">No records meet the criteria</h3>
+        <h3 class="italic text-gray-600 text-lg">{{__('No records meet the criteria')}}</h3>
     </div>
     @endif
 
 
     
 </div>
+
+
+
 
 </x-layouts.events>

@@ -4,13 +4,13 @@
     <x-slot name="sidebar">
         <div class="!px-6">
             <div class="p-8">
-                <h3 class="font-semibold text-center">Every Member</h3>
+                <h3 class="font-semibold text-center">{{__('Every Member')}}</h3>
             </div>
             <form method="GET" action="{{ route('users.index') }}" id="filterForm" class="flex flex-col gap-2">
                 <input 
                 type="text" 
                 name="search" 
-                placeholder="Search users..." 
+                placeholder="{{__('Search users...')}}" 
                     value="{{ request('search') }}" 
                     class="border px-2 py-1 w-full mt-4"
                 />
@@ -31,7 +31,7 @@
                 </div>
 
 
-                <button type="submit" class="retro-button">Apply Filters</button>
+                <button type="submit" class="retro-button">{{__('Apply Filters')}}</button>
 
             </form>
         </div>
@@ -44,7 +44,7 @@
                 <button 
                     onclick="toggleForm(true)" 
                     class="btn btn-secondary w-full mt-1">
-                    Create User
+                    {{__('Create User')}}
                 </button>
             </div>
 
@@ -54,7 +54,7 @@
                 class="hidden my-5 mb-4 bg-white border border-gray-300 w-full"
             >
                 <div class="flex justify-between items-center bg-gray-100 px-4 py-2 border-b border-gray-300">
-                    <span class="text-sm font-semibold text-gray-700">Create User</span>
+                    <span class="text-sm font-semibold text-gray-700">{{__('Create User')}}</span>
                     <button 
                         onclick="toggleForm(false)" 
                         class="text-gray-500 hover:text-red-500 text-2xl leading-none font-bold"
@@ -72,7 +72,7 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">{{__('Name')}}</label>
                         <input 
                             type="text" 
                             id="name" 
@@ -86,7 +86,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">{{__('Email')}}</label>
                         <input 
                             type="email" 
                             id="email" 
@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="birthdate" class="form-label">Birthdate</label>
+                        <label for="birthdate" class="form-label">{{__('Birthdate')}}</label>
                         <input 
                             type="date" 
                             id="birthdate" 
@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="text-end">
-                        <button type="submit" class="btn btn-success w-full">Register</button>
+                        <button type="submit" class="btn btn-success w-full">{{__('Register')}}</button>
                     </div>
                 </form>
             </div>

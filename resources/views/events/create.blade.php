@@ -1,16 +1,16 @@
 <x-layouts.events>
     <x-slot name="title">
-        Create Event
+        {{__('Create Event')}}
     </x-slot>
 
     <div class="container my-5">
         <form action="{{ route('events.store') }}" method="POST" class="card shadow-sm p-4 bg-light rounded">
-            <h1 class="mb-4 text-2xl font-bold">Create Event</h1>
+            <h1 class="mb-4 text-2xl font-bold">{{__('Create Event')}}</h1>
 
             @csrf
 
             <div class="mb-3">
-                <label for="name" class="form-label">Event Name</label>
+                <label for="name" class="form-label">{{__('Event Name')}}</label>
                 <input 
                     type="text" 
                     name="name" 
@@ -24,7 +24,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
+                <label for="description" class="form-label">{{__('Description')}}</label>
                 <textarea 
                     name="description" 
                     id="description" 
@@ -40,13 +40,13 @@
             @endphp
 
             <div class="mb-3">
-                <label for="dresscode" class="form-label">Dresscode</label>
+                <label for="dresscode" class="form-label">{{__('Dresscode')}}</label>
                 <select 
                     name="dresscode" 
                     id="dresscode" 
                     required 
                     class="form-select @error('dresscode') is-invalid @enderror">
-                    <option value="" disabled selected>Select a dresscode</option>
+                    <option value="" disabled selected>{{__('Select a dresscode')}}</option>
                     @foreach ($dresscodes as $dresscode)
                         <option value="{{ $dresscode }}" {{ old('dresscode') == $dresscode ? 'selected' : '' }}>
                             {{ $dresscode }}
@@ -59,7 +59,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="datetime" class="form-label">Event Date & Time</label>
+                <label for="datetime" class="form-label">{{__('Event Date & Time')}}</label>
                 <input 
                     type="datetime-local" 
                     name="datetime" 
@@ -72,7 +72,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-success">Create Event</button>
+            <button type="submit" class="btn btn-success">{{__('Create Event')}}</button>
         </form>
 
         @if ($errors->any())

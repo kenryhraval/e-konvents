@@ -31,7 +31,7 @@ class TakenController extends Controller
         // Check if new balance would exceed the user's role-based limit
         if ($newBalance < $user->maxRoleBalanceLimit()) {
             return redirect()->back()->withErrors([
-                'balance' => 'You cannot take this item. It would exceed your allowed negative balance.',
+                'balance' => __('You cannot take this item. It would exceed your allowed negative balance.'),
             ]);
         }
 
@@ -46,7 +46,7 @@ class TakenController extends Controller
         // Update user balance
         $user->update(['balance' => $newBalance]);
 
-        return redirect()->route('items.index')->with('success', 'Item taken and logged.');
+        return redirect()->route('items.index')->with('success', __('Item taken and logged'));
     }
 
 

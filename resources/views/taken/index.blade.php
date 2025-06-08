@@ -1,11 +1,15 @@
 <x-layouts.items>
-    <x-slot name="title">Taken Items</x-slot>
+    <x-slot name="title">
+        {{__('Taken Items')}}
+    </x-slot>
 
     <div class="max-w-6xl mx-auto py-5">
 
         @if($taken->isEmpty())
             <div class="flex justify-center items-center h-40">
-                <h3 class="italic text-gray-600 text-lg">No records meet the criteria</h3>
+                <h3 class="italic text-gray-600 text-lg">
+                    {{__('No records meet the criteria')}}
+                </h3>
             </div>
 
         @else
@@ -13,11 +17,11 @@
             <table class="min-w-full bg-white border border-gray-300 rounded-md">
                 <thead>
                     <tr class="bg-gray-100 text-left">
-                        <th class="px-4 py-2 border">User</th>
-                        <th class="px-4 py-2 border">Item</th>
-                        <th class="px-4 py-2 border">Count</th>
-                        <th class="px-4 py-2 border">Reason</th>
-                        <th class="px-4 py-2 border">Date</th>
+                        <th class="px-4 py-2 border">{{__('User')}}</th>
+                        <th class="px-4 py-2 border">{{__('Item')}}</th>
+                        <th class="px-4 py-2 border">{{__('Count')}}</th>
+                        <th class="px-4 py-2 border">{{__('Reason')}}</th>
+                        <th class="px-4 py-2 border">{{__('Date')}}</th>
                     </tr>
                 </thead>
                 <tbody>

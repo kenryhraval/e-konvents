@@ -23,7 +23,7 @@ class AbsenceController extends Controller
         ]);
 
         return redirect()->route('events.show', $request->event_id)
-                        ->with('success', 'Absence recorded.');
+                        ->with('success', __('Absence recorded'));
     }
 
     public function update(Request $request, Absence $absence)
@@ -37,7 +37,7 @@ class AbsenceController extends Controller
         ]);
 
         return redirect()->route('events.show', $absence->event_id)
-                        ->with('success', 'Absence updated.');
+                        ->with('success', __('Absence updated'));
     }
 
     public function destroy(Absence $absence)
@@ -47,7 +47,7 @@ class AbsenceController extends Controller
         $absence->delete();
 
         return redirect()->route('events.show', $eventId)
-            ->with('success', 'Absence deleted successfully.');
+            ->with('success', __('Absence deleted successfully'));
     }
 
 

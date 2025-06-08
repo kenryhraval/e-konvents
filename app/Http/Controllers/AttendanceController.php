@@ -24,7 +24,7 @@ class AttendanceController extends Controller
             ]);
         }
 
-        return redirect()->route('events.show', $event)->with('success', 'Attendance updated.');
+        return redirect()->route('events.show', $event)->with('success', __('Attendance updated'));
     }
 
 

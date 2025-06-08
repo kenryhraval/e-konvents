@@ -20,7 +20,7 @@ class RoleTypeController extends Controller
         ]);
 
         RoleType::create($validated);
-        return back()->with('success', 'Role added successfully.');
+        return back()->with('success', __('Role added successfully'));
     }
 
     public function update(Request $request, RoleType $role)
@@ -31,13 +31,13 @@ class RoleTypeController extends Controller
         ]);
 
         $role->update($validated);
-        return back()->with('success', 'Role updated successfully.');
+        return back()->with('success', __('Role updated successfully'));
     }
 
     public function destroy(RoleType $role)
     {
         $role->delete();
-        return back()->with('success', 'Role deleted successfully.');
+        return back()->with('success', __('Role deleted successfully'));
     }
 
 }

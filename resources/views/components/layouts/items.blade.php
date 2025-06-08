@@ -11,7 +11,7 @@
                 <input 
                     type="text" 
                     name="search" 
-                    placeholder="Search items..." 
+                    placeholder="{{__('Search items...')}}" 
                     value="{{ request('search') }}" 
                     class="border px-2 py-1 w-full"
                 />
