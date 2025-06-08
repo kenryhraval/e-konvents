@@ -19,7 +19,7 @@
                         data-accordion-target="#body-{{ $item->id }}"
                         aria-expanded="{{ $isFirst ? 'true' : 'false' }}"
                         aria-controls="body-{{ $item->id }}"
-                        class="w-full text-left text-black px-3 py-4 !text-[18px]"
+                        class="w-full text-left text-black px-3 py-5 !text-[18px] !uppercase"
                     >
                         {{$item->name}}
                     </button>   
@@ -53,7 +53,9 @@
                         </form>
 
                         @can('update', $item)
-                            <a href="{{ route('items.edit', $item) }}" class="px-3 py-1 border bg-gray-100 text-center hover:bg-gray-300">Edit</a>
+                            <a href="{{ route('items.edit', $item) }}" class="px-3 py-1 border bg-gray-100 text-center hover:bg-gray-300">
+                                {{__('Edit')}}
+                            </a>
 
                             <form method="POST" action="{{ route('items.destroy', $item) }}">
                                 @csrf

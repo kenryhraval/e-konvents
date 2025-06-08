@@ -3,7 +3,7 @@
         {{__('Edit Item')}}
     </x-slot>
 
-    <div class="container my-5">
+    <div class="container my-5 lg:!px-[120px]">
         <form method="POST" action="{{ route('items.update', $item) }}" class="card shadow-sm p-4 bg-light rounded">
             <h1 class="mb-4">{{__('Edit Item')}}</h1>
             

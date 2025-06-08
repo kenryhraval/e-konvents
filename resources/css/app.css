@@ -127,9 +127,45 @@ input, textarea {
   transform: translateY(1px);
 }
 
+#calendar {
+    font-size: 0.7rem; /* Smaller font */
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f8fafc;
+}
+
+.fc .fc-daygrid-day:hover .fc-daygrid-day-frame {
+    background-color: #e0f2fe;
+    cursor: pointer;
+}
+
+.fc .fc-daygrid-day {
+    padding: 0 !important;
+    min-height: unset !important;
+    height: 1.4rem !important; 
+}
+
+.fc .fc-daygrid-day-frame {
+    height: 100% !important;
+    min-height: unset !important;
+    line-height: 1.2rem !important;
+    background-color: #f9fafb;
+}
+
+.fc .fc-daygrid-day-number {
+    padding: 0 !important;
+    line-height: 1.2rem !important;
+}
+
+.fc-header-toolbar {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
 
 
-@media (min-width: 769px) {
+
+@media (min-width: 850px) {
   .sidebar {
     @apply left-0 w-64 h-[calc(100vh-5rem)] top-20 fixed;
   }
@@ -155,4 +191,5 @@ input, textarea {
     .main {
         @apply p-40 pt-30 m-0 px-34;
     }
+
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class EventController extends Controller
 {
@@ -14,7 +16,6 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-
         $user = Auth::user();
 
         $events = Event::query()
@@ -26,17 +27,26 @@ class EventController extends Controller
                     $q->where('user_id', $user->id)
                 )
             )
-            ->when($request->start_date, fn($query) =>
-                $query->whereDate('datetime', '>=', $request->start_date)
-            )
-            ->when($request->end_date, fn($query) =>
-                $query->whereDate('datetime', '<=', $request->end_date)
-            )
-             ->orderBy('datetime', 'asc')
+            ->when($request->filled('selected_dates'), function ($query) use ($request) {
+                $dates = explode(',', $request->input('selected_dates'));
+
+                // Make sure all dates are valid format
+                $dates = array_filter($dates, fn($d) => preg_match('/^\d{4}-\d{2}-\d{2}$/', $d));
+
+                if (count($dates) > 0) {
+                    $query->where(function ($sub) use ($dates) {
+                        foreach ($dates as $date) {
+                            $sub->orWhereDate('datetime', $date);
+                        }
+                    });
+                }
+            })
+            ->orderBy('datetime', 'asc')
             ->get();
 
         return view('events.index', ['events' => $events]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -96,6 +106,12 @@ class EventController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
+            // Delete the old image if it exists
+            if ($event->image_path && Storage::disk('public')->exists($event->image_path)) {
+                Storage::disk('public')->delete($event->image_path);
+            }
+
+            // Store new image
             $path = $request->file('image')->store('events', 'public');
             $validated['image_path'] = $path;
         }
@@ -107,15 +123,19 @@ class EventController extends Controller
         return redirect()->route('events.index')->with('success', __('Event updated'));
     }
 
-
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Event $event)
     {
+        // Delete image file if it exists
+        if ($event->image_path && Storage::disk('public')->exists($event->image_path)) {
+            Storage::disk('public')->delete($event->image_path);
+        }
+
         $event->delete();
 
         return redirect()->route('events.index')->with('success', __('Event deleted successfully'));
     }
+
 }

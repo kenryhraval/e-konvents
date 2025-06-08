@@ -12,6 +12,9 @@
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
+    {{-- Calendar --}}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
     {{-- Custom --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -28,8 +31,8 @@
     <nav class="navbar">
         <div class="navbar-inner flex-col md:flex-row">
             <div class="navbar-left flex justify-between items-center w-full max-w-xs md:max-w-none">
-                <a href="{{ route('events.index') }}" class="brand uppercase">
-                    <h1>{{ __('e-konvents') }}</h1>
+                <a href="{{ route('events.index') }}" class="brand uppercase pe-5">
+                    <h1 class="whitespace-nowrap">{{ __('e-konvents') }}</h1>
                 </a>
 
                 <div>

@@ -38,7 +38,7 @@
     "Assign a Duty": "Piešķirt pienākumu",
     "Assign Duty": "Piešķirt pienākumu",
     "Assigned Duties": "Piešķirtie pienākumi",
-    "Attendees": "Dalībnieki",
+    "Attendees": "Viesi",
 
     "Back": "Atpakaļ",
     "Balance": "Iekrājums",
@@ -69,6 +69,7 @@
     "Edit Profile": "Labot profilu",
     "Edit User": "Labot profilu",
     "Email": "E-pasts",
+    "Event Image": "Pasākuma bilde",
     "Events": "Pasākumi",
     "Events Display": "Pasākuma skats",
     "Event Date & Time": "Pasākuma datums un laiks",
@@ -151,7 +152,8 @@
 
     "With my duties": "Mani pienākumi",
 
+    "Your account details.": "Jūsu profilinformācija.",
     "Your account has been created.": "Jūsu profils ir izveidots.",
-    "Your role": "Jūsu amats",
+    "Your role": "Jūsu uzdevums",
     "Your temporary password is:": "Jūsu pagaidu parole ir:"
 }

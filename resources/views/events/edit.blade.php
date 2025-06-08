@@ -3,7 +3,7 @@
         {{__('Edit Event')}}
     </x-slot>
 
-    <div class="container my-5">
+    <div class="container my-5 lg:!px-[120px]">
         
         <form method="POST" action="{{ route('events.update', $event) }}"
             enctype="multipart/form-data"
@@ -37,58 +37,63 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="dresscode" class="form-label">{{__('Dresscode')}}</label>
-                <select name="dresscode" id="dresscode"
-                        required
-                        class="form-select @error('dresscode') is-invalid @enderror">
-                    <option value="" disabled>{{__('Select a dresscode')}}</option>
-                    @foreach (['Full suit', 'Semi-formal', 'Casual', 'Traditional', 'Theme costume'] as $dresscode)
-                        <option value="{{ $dresscode }}" {{ old('dresscode', $event->dresscode) == $dresscode ? 'selected' : '' }}>
-                            {{ $dresscode }}
-                        </option>
-                    @endforeach
-                </select>
+            <div class="d-flex gap-4 ">
 
-                @error('dresscode')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <div class="flex-col">
+                    {{-- Dresscode --}}
+                    <div class="flex-fill mb-3">
+                        <label for="dresscode" class="form-label">{{__('Dresscode')}}</label>
+                        <select name="dresscode" id="dresscode"
+                                required
+                                class="form-select @error('dresscode') is-invalid @enderror">
+                            <option value="" disabled>{{__('Select a dresscode')}}</option>
+                            @foreach (['Full suit', 'Semi-formal', 'Casual', 'Traditional', 'Theme costume'] as $dresscode)
+                                <option value="{{ $dresscode }}" {{ old('dresscode', $event->dresscode) == $dresscode ? 'selected' : '' }}>
+                                    {{ $dresscode }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('dresscode')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Datetime --}}
+                    <div class="flex-fill mb-3" >
+                        <label for="datetime" class="form-label">{{__('Event Date & Time')}}</label>
+                        <input type="datetime-local" name="datetime" id="datetime"
+                            value="{{ old('datetime', $event->datetime->format('Y-m-d\TH:i')) }}"
+                            required
+                            class="form-control @error('datetime') is-invalid @enderror">
+                        @error('datetime')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                
+
+                {{-- Image Preview & Upload --}}
+                <div class="flex-fill mb-3 text-left">
+                    <label class="form-label d-block">{{ __('Event Image') }}</label>
+                    <div class="mb-2 mx-auto">
+                        <img id="image-preview"
+                            src="{{ $event->image_path ? asset('storage/' . $event->image_path) : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGh5WFH8TOIfRKxUrIgJZoDCs1yvQ4hIcppw&s' }}"
+                            alt="Event Image"
+                            class="rounded img-fluid shadow-sm w-full">
+                    </div>
+                    <input type="file" name="image" id="image"
+                        accept="image/*"
+                        class="form-control d-none @error('image') is-invalid @enderror">
+                    @error('image')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="datetime" class="form-label">{{__('Event Date & Time')}}</label>
-                <input type="datetime-local" name="datetime" id="datetime"
-                       value="{{ old('datetime', $event->datetime->format('Y-m-d\TH:i')) }}"
-                       required
-                       class="form-control @error('datetime') is-invalid @enderror">
 
-                @error('datetime')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
 
-            <div class="mb-3">
-                <label for="image" class="form-label">{{__('Event Image')}}</label>
-                <input type="file" name="image" id="image"
-                    accept="image/*"
-                    class="form-control @error('image') is-invalid @enderror">
-
-                @error('image')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
 
             <button type="submit" class="btn btn-success">{{__('Update Event')}}</button>
         </form>
-
-        @if ($errors->any())
-            <div class="alert alert-danger mt-4">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </div>
 </x-layouts.events>

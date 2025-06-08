@@ -21,7 +21,7 @@ class PasswordMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Your Account Details')
+        return $this->subject(__('Your account details.'))
                     ->view('emails.password');
     }
 }

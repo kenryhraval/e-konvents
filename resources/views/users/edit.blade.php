@@ -4,7 +4,8 @@
         {{__('Edit Profile')}}
     </x-slot>
 
-    <form method="POST" action="{{ route('users.update', $user) }}" class="card shadow-sm p-4 bg-light rounded">
+    <div class="container my-5 lg:!px-[120px]">
+    <form method="POST" action="{{ route('users.update', $user) }}" class="card shadow-sm p-4 bg-light rounded ">
         <h3> {{ $user->name }} </h3>    
         @csrf
             @method('PUT')
@@ -116,14 +117,10 @@
                 </div>
 
 
-            </div>
-
-
-        </div>
-
-           
+            </div>           
 
             <button type="submit" class="btn btn-success">{{__('Update User')}}</button>
         </form>
+    </div>
 
 </x-layouts.users>

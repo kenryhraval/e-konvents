@@ -3,7 +3,7 @@
         {{__('Events Display')}}
     </x-slot>
 
-    <div class="container my-5">
+    <div class="container my-5 lg:!px-[120px]">
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white">
                 <h2 class="mb-0">{{ $event->name }}</h2>
@@ -76,7 +76,7 @@
             </div>
 
             <div class="card-footer d-flex justify-content-between align-items-center">
-                <a href="{{ route('events.index') }}" class="btn btn-secondary w-fill lg:w-[100px]">
+                <a href="{{ route('events.index') }}" class="btn btn-secondary w-fill xl:w-[100px]">
                     ← {{__('Back')}}
                 </a>
                 
@@ -86,29 +86,29 @@
                             $userAbsence = $event->absences->firstWhere('user_id', auth()->id());
                         @endphp
 
-                        <button class="btn btn-outline-warning w-fill lg:w-[100px]"
+                        <button class="btn btn-outline-warning w-fill xl:w-[100px]"
                                 onclick="document.getElementById('absence-form').classList.toggle('d-none')">
                             {{ $userAbsence ? __('Edit Absence') : __('Mark Absence') }}
                         </button>
                     @endcannot
 
-                    <button class="btn btn-outline-info w-fill lg:w-[100px]" onclick="document.getElementById('attendees-list').scrollIntoView({ behavior: 'smooth' });">
+                    <button class="btn btn-outline-info w-fill xl:w-[100px]" onclick="document.getElementById('attendees-list').scrollIntoView({ behavior: 'smooth' });">
                         {{__('Attendees')}}
                     </button>
 
                     @can('update', $event)
-                        <button class="btn btn-outline-warning w-fill lg:w-[100px]" onclick="document.getElementById('absences-list').scrollIntoView({ behavior: 'smooth' });">
+                        <button class="btn btn-outline-warning w-fill xl:w-[100px]" onclick="document.getElementById('absences-list').scrollIntoView({ behavior: 'smooth' });">
                             {{__('Absences')}}
                         </button>
 
-                        <a href="{{ route('events.edit', $event) }}" class="btn btn-outline-primary w-fill lg:w-[100px]">
+                        <a href="{{ route('events.edit', $event) }}" class="btn btn-outline-primary w-fill xl:w-[100px]">
                             {{__('Edit')}}
                         </a>
 
                         <form method="POST" action="{{ route('events.destroy', $event) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-outline-danger w-fill lg:w-[100px]">
+                            <button type="submit" class="btn btn-outline-danger w-fill xl:w-[100px]">
                                 {{__('Delete')}}
                             </button>
                         </form>
@@ -205,9 +205,9 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>User</th>
-                                    <th>Reason</th>
-                                    <th>Submitted</th>
+                                    <th>{{__('User')}}</th>
+                                    <th>{{__('Reason')}}</th>
+                                    <th>{{__('Date and Time')}}</th>
                                     <th class="w-[20%]">{{__('Delete')}}</th>
                                 </tr>
                             </thead>

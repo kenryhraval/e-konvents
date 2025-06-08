@@ -4,7 +4,6 @@ import 'jquery-validation';
 window.$ = $;
 window.jQuery = $;
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.getElementById('carousel');
     const cardWidth = 18 * 16 + 16;
@@ -76,5 +75,27 @@ document.addEventListener('DOMContentLoaded', () => {
             btnWrapper.classList.remove('hidden');
         }
     }
+
+    const preview = document.getElementById('image-preview');
+    const fileInput = document.getElementById('image');
+
+    preview.addEventListener('click', function () {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+    
 });
 
