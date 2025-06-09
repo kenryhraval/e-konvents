@@ -70,7 +70,7 @@ a {
 }
 
 .custom-button {
-    @apply text-white hover:text-green-200 px-4 py-2 font-semibold !text-[13px] sm:!text-lg;
+    @apply text-white hover:text-green-200 px-4 py-2 font-semibold text-[12px];
 }
 
 .login-form-outer {
@@ -160,6 +160,12 @@ input, textarea {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
     text-align: left;
+}
+
+@media (min-width: 600px) {
+    .custom-button {
+        @apply text-lg;
+    }
 }
 
 @media (min-width: 850px) {
