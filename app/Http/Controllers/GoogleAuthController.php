@@ -16,25 +16,36 @@ class GoogleAuthController extends Controller
 
     public function callback()
     {
-        $googleUser = Socialite::driver('google')->user();
+        if (request()->has('error')) {
+            return redirect()
+                ->route('users.index') 
+                ->withErrors(__('Google login was cancelled'));
+        }
+
+        try {
+            $googleUser = Socialite::driver('google')->user();
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('users.index') // or fallback route
+                ->withErrors(__('Google login failed'));
+        }
 
         // Find user by email
         $user = User::where('email', $googleUser->getEmail())->first();
 
         if ($user) {
-            // Save google ID and optionally avatar
             $user->google_id = $googleUser->getId();
             $user->google_avatar = $googleUser->getAvatar();
             $user->save();
 
             return redirect()->route('users.show', $user)->with('success', __('Google account linked!'));
-
         } else {
-
-            // Redirect somewhere safe like dashboard or home
-            return redirect()->route('users.index')->withErrors(__('No user with this email exists in the system.'));
+            return redirect()
+                ->route('users.index')
+                ->withErrors(__('No user with this email exists in the system'));
         }
-
     }
+
+
 
 }
