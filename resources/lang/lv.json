@@ -80,6 +80,11 @@
 
     "Filter Interval": "Filtrēt intervālu",
 
+    "Google login was cancelled" : "Google pieslēgšanās tika atcelta",
+    "Google login failed": "Google pieslēgšanās neizdevās",
+    "Google account linked!": "Google profils sasaistīts!",
+    "No user with this email exists in the system": "Sistēmā nav lietotāja ar šādu e-pastu",
+
     "Hello": "Sveiki",
 
     "If you want to change the password, enter it here.": "Ja vēlaties mainīt paroli, ievadiet to šeit.",

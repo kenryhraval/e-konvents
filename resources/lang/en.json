@@ -79,6 +79,11 @@
 
     "Filter Interval": "Filter Interval",
 
+    "Google login was cancelled" : "Google login was cancelled",
+    "Google login failed": "Google login failed",
+    "Google account linked!": "Google account linked!",
+    "No user with this email exists in the system": "No user with this email exists in the system",
+
     "Hello": "Hello",
     
     "If you want to change the password, enter it here." : "If you want to change the password, enter it here.",
