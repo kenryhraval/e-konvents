@@ -9,6 +9,7 @@ use App\Http\Controllers\DutyController;
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\RoleTypeController;
+use App\Http\Controllers\GoogleAuthController;
 
 use App\Http\Middleware\ActionLogger;
 use App\Http\Middleware\SetLocale;
@@ -28,8 +29,8 @@ Route::middleware([SetLocale::class])->group(function () {
 
 
     Route::get('/', function () {
-        return view('welcome'); 
-    })->name('welcome');
+        return view('auth.login'); 
+    })->name('login');
 
     Route::middleware('auth', ActionLogger::class)->group(function() {
         Route::resource('items', ItemController::class);
@@ -49,6 +50,10 @@ Route::middleware([SetLocale::class])->group(function () {
 
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
         Route::post('/attendances', [AttendanceController::class, 'store'])->name('attendances.store');
+
+        Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
+        Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
+
     });
 
     Route::middleware('guest')->group(function() {

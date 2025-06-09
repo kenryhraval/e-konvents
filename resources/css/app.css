@@ -1,7 +1,4 @@
 @import "tailwindcss";
-
-/* @tailwind base;
-@tailwind components; */
 @tailwind utilities;
 
 * {
@@ -48,15 +45,16 @@ a {
 }
 
 .navbar-inner {
-    @apply flex items-start md:items-center justify-between w-full h-auto md:h-full px-8 flex-col md:flex-row;
+    @apply flex items-start md:items-center justify-between w-full px-4 md:px-8 flex-col md:flex-row;
 }
+
 
 .navbar-left {
     @apply mb-4;
 }
 
 .navbar-right {
-    @apply flex md:flex gap-3 md:gap-6 items-start md:items-center list-none w-full md:w-auto flex-col md:flex-row;
+    @apply flex flex-col md:flex-row gap-3 md:gap-6 items-start md:items-center list-none w-full md:w-auto;
 } 
 
 .navbar ul {
@@ -68,11 +66,11 @@ a {
 }
 
 .navbar h1 {
-    @apply text-4xl font-bold text-white p-0 m-0;
+    @apply text-4xl font-bold text-white p-0 m-0 ml-3;
 }
 
 .custom-button {
-    @apply text-white hover:text-green-200 px-4 py-2 font-semibold text-lg;
+    @apply text-white hover:text-green-200 px-4 py-2 font-semibold text-sm sm:text-lg;
 }
 
 .login-form-outer {
@@ -161,9 +159,8 @@ input, textarea {
 .fc-header-toolbar {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+    text-align: left;
 }
-
-
 
 @media (min-width: 850px) {
   .sidebar {
