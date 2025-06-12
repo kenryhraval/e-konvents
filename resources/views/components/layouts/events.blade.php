@@ -143,8 +143,9 @@
                 </div>
             @endcan
         </x-slot>
-
+        <main class="main">
         {{ $slot }}
+        </main>
     </x-layouts.base>
 
 <script>

@@ -70,14 +70,15 @@
     </nav>
 
     @auth
-    <aside class="sidebar">
-        {{ $sidebar ?? '' }}
-    </aside>
+        @if (!isset($showSidebar) || $showSidebar)
+            <aside class="sidebar">
+                {{ $sidebar ?? '' }}
+            </aside>
+        @endif
     @endauth
 
-    <main class="main">
-        {{ $slot }}
-    </main>
+
+    {{ $slot }}
 
 </body>
 </html>

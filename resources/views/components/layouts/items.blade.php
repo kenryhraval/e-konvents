@@ -101,7 +101,10 @@
             </div>
 
         @endcan
+           
     </x-slot>
 
-    {{ $slot }}
+    <main class="main">
+        {{ $slot }}
+    </main>
 </x-layouts.base>

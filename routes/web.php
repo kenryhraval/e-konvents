@@ -29,8 +29,8 @@ Route::middleware([SetLocale::class])->group(function () {
 
 
     Route::get('/', function () {
-        return view('auth.login'); 
-    })->name('login');
+        return view('welcome'); 
+    })->name('welcome');
 
     Route::middleware('auth', ActionLogger::class)->group(function() {
         Route::resource('items', ItemController::class);

@@ -162,6 +162,10 @@ input, textarea {
     text-align: left;
 }
 
+.bg-welcome-gradient {
+    background: linear-gradient(to bottom right, #a5cdff, #ffffff, #ac99f6);
+}
+
 @media (min-width: 600px) {
     .custom-button {
         @apply text-lg;
