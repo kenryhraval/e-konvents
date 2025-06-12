@@ -32,7 +32,7 @@
     "Actions": "Darbības",
     "Add Role": "Pievienot amatu",
     "Address": "Adrese",
-    "Admin Roles": "Pārvaldnieks",
+    "Admin Roles": "Pārvalde",
     "All Users": "Visi lietotāji",
     "Apply Filters": "Pielietot filtrus",
     "Assign a Duty": "Piešķirt pienākumu",
@@ -126,7 +126,7 @@
     "Present": "Klātesošs",
 
     "Reason": "Iemesls",
-    "Reason for absence...": "Kavējuma iemesls...",
+    "Reason for absence": "Kavējuma iemesls...",
     "Register": "Reģistrēties",
     "Register User": "Reģistrēt biedru",
     "Restrictions": "Ierobežojumi",

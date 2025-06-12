@@ -2,8 +2,7 @@
 <x-layouts.items>
 
     @if ($items->count() > 0)
-
-    <div id="accordion" data-accordion="collapse" class="border divide-y mx-auto my-5"
+    <div id="accordion" data-accordion="collapse" class="border divide-y mx-auto my-5 max-w-3xl"
      data-active-classes="bg-gray-800 text-white"
      data-inactive-classes="">
         @foreach ($items as $item)
@@ -13,80 +12,80 @@
         @endphp
             
             <div>
-                <h2 id="heading-{{ $item->id }}" class="m-0 p-0">
+                <h2 id="heading-{{ $item->id }}" class="m-0">
                     <button
                         type="button"
                         data-accordion-target="#body-{{ $item->id }}"
                         aria-expanded="{{ $isFirst ? 'true' : 'false' }}"
                         aria-controls="body-{{ $item->id }}"
-                        class="w-full text-left text-black px-3 py-5 !text-[18px] !uppercase"
+                        class="w-full text-left px-5 py-4 transition-colors"
                     >
-                        {{$item->name}}
+                        <span class="font-mono text-2xl uppercase font-bold block">
+                            {{$item->name}}
+                        </span>
                     </button>   
                 </h2>
 
-                <div id="body-{{ $item->id }}" class="hidden border-t px-3 py-4 bg-blue-100 p-[40px]" aria-labelledby="heading-{{ $item->id }}">
+                <div id="body-{{ $item->id }}" class="hidden border-t px-5 py-5 bg-blue-50" aria-labelledby="heading-{{ $item->id }}">
                     
-                    <p class="text-base text-gray-600 mb-2">
-                        {{__('Price')}}: <strong>{{ $item->price }} €</strong>
+                    <p class="text-lg text-gray-700 mb-4">
+                        {{__('Price')}}: <span class="font-bold text-blue-600">{{ $item->price }} €</span>
                     </p>
                     
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-                        
-                        <form method="POST" action="{{ route('taken.store', $item) }}" class="flex flex-1 flex-col md:flex-row gap-2">
-                            @csrf
-                            <input type="text" name="reason" placeholder="{{__('Reason')}}" class="border px-2 py-1 w-full @error('reason') is-invalid @enderror" />
-                            <div class="flex items-center gap-2 w-full md:w-auto justify-end">
-                                <input type="number" name="count" min="1" value="1" class="border px-2 py-1 w-20 @error('count') is-invalid @enderror" />
-                                <button type="submit" class="px-3 py-1 border bg-gray-100 hover:bg-gray-300 ">
-                                    {{__('Take')}}
-                                </button>
-                            </div>
-
-                            @if ($errors->any())
-                                <div class="invalid-feedback d-block">
-                                    {{ $errors->first() }}
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 w-full">
+                        <form method="POST" action="{{ route('taken.store', $item) }}" class="flex-grow md:flex-1 min-w-[50%]">
+                            <div class="flex flex-col md:flex-row gap-3 w-full">
+                                <input 
+                                    type="text" 
+                                    name="reason" 
+                                    placeholder="{{__('Reason')}}" 
+                                    class="flex-grow min-w-0 border px-3 py-2 rounded @error('reason') border-red-500 @enderror" 
+                                />
+                                <div class="flex gap-2 flex-shrink-0">
+                                    <input 
+                                        type="number" 
+                                        name="count" 
+                                        min="1" 
+                                        value="1" 
+                                        class="w-20 border px-3 py-2 rounded @error('count') border-red-500 @enderror" 
+                                    />
+                                    <button 
+                                        type="submit" 
+                                        class="px-4 py-2 bg-white border rounded font-medium whitespace-nowrap"
+                                    >
+                                        {{__('Take')}}
+                                    </button>
                                 </div>
-                            @endif
-
-
+                            </div>
                         </form>
 
                         @can('update', $item)
-                            <a href="{{ route('items.edit', $item) }}" class="px-3 py-1 border bg-gray-100 text-center hover:bg-gray-300">
+                        <div class="flex gap-2 flex-shrink-0 md:ml-4">
+                            <a href="{{ route('items.edit', $item) }}" class="px-4 py-2 bg-white border rounded font-medium">
                                 {{__('Edit')}}
                             </a>
-
                             <form method="POST" action="{{ route('items.destroy', $item) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="px-3 py-1 border w-full bg-gray-100 hover:bg-gray-300">
+                                <button type="submit" class="px-4 py-2 bg-white border rounded font-medium">
                                     {{__('Delete')}}
                                 </button>
                             </form>
+                        </div>
                         @endcan
-                        
-
                     </div>
                 </div>
-
-
             </div>
         @endforeach
     </div>
 
-    <div class="flex justify-center my-4 ">
-        <div>
-            {{ $items->links('vendor.pagination.custom-tailwind') }}
-        </div>
-        <div class="w-[25px]"> </div>
+    <div class="flex justify-center my-8">
+        {{ $items->links('vendor.pagination.custom-tailwind') }}
     </div>
     @else
     <div class="flex justify-center items-center h-40">
         <h3 class="italic text-gray-600 text-lg">{{__('No records meet the criteria')}}</h3>
     </div>
     @endif
-
-</div>
     
-</x-layouts.items>
+</x-layouts.items>  
