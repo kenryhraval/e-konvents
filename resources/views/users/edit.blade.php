@@ -15,7 +15,7 @@
         @csrf
             @method('PUT')
 
-            <div class="mb-3 flex flex-col md:flex-row md:items-end gap-4">
+            <div class="mb-3 flex flex-col md:flex-row gap-4">
                 <div class="flex-1">
                     <label for="email" class="form-label">{{ __('Email') }}</label>
                     <input type="email" name="email" id="email"
@@ -29,24 +29,24 @@
                     </div>
                 </div>
 
-                <div class="md:mb-[6px]">
+                <div class="flex items-end"> <!-- Changed to items-end to align with input bottom -->
                     @if ($user->google_id)
-                        <div class="inline-flex items-center gap-2 text-sm font-medium text-green-700 bg-green-100 px-4 py-2 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        <div class="inline-flex items-center gap-2 h-[42px] text-sm font-medium text-green-700 bg-green-50 border border-green-200 px-4 py-2 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
                             {{ __('Google Linked') }}
                         </div>
                     @else
                         <a href="{{ route('auth.google') }}"
-                        class="inline-flex items-center gap-2 text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-semibold shadow transition whitespace-nowrap">
+                        class="inline-flex w-full items-center gap-2 h-[42px] text-sm text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-medium shadow transition whitespace-nowrap">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 488 512" fill="currentColor">
                                 <path d="M488 261.8c0-17.8-1.5-35-4.3-51.6H249v97.8h134.6c-5.8 31.3-23.7 57.8-50.6 75.6v62.7h81.8c47.8-44 74.2-108.8 74.2-184.5z"/>
                                 <path d="M249 508c67.6 0 124.3-22.4 165.8-60.9l-81.8-62.7c-22.8 15.3-51.9 24.3-84 24.3-64.7 0-119.4-43.7-139-102.4h-84.1v64.6C73.4 445.1 153.9 508 249 508z"/>
                                 <path d="M110 305.9c-4.7-13.7-7.4-28.2-7.4-43s2.7-29.3 7.4-43v-64.6h-84.1C10.2 197.1 0 222.1 0 249s10.2 51.9 25.9 72.6L110 305.9z"/>
                                 <path d="M249 100.3c35.6 0 67.4 12.3 92.4 36.4l69.3-69.3C373.3 25.1 319.6 0 249 0 153.9 0 73.4 62.9 41.8 151.3l84.1 64.6C129.6 144 184.3 100.3 249 100.3z"/>
                             </svg>
-                            {{ __('Link Google Account') }}
+                            {{ __('Link Google') }}
                         </a>
                     @endif
                 </div>
