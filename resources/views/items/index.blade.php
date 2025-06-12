@@ -34,6 +34,7 @@
                     
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 w-full">
                         <form method="POST" action="{{ route('taken.store', $item) }}" class="flex-grow md:flex-1 min-w-[50%]">
+                            @csrf
                             <div class="flex flex-col md:flex-row gap-3 w-full">
                                 <input 
                                     type="text" 
