@@ -33,55 +33,55 @@
                     </p>
                     
                     <div class="flex flex-wrap gap-y-4 gap-x-6 w-full items-start justify-between">
-    {{-- Form with inputs + Take --}}
-    <form method="POST" action="{{ route('taken.store', $item) }}" class="flex-1 min-w-[250px]">
-        @csrf
-        <div class="flex flex-wrap gap-3 w-full">
-            <input 
-                type="text" 
-                name="reason" 
-                placeholder="{{ __('Reason') }}" 
-                class="flex-1 min-w-[150px] border px-3 py-2 rounded @error('reason') border-red-500 @enderror" 
-            />
-            <input 
-                type="number" 
-                name="count" 
-                min="1" 
-                value="1" 
-                class="w-24 border px-3 py-2 rounded @error('count') border-red-500 @enderror" 
-            />
-            <button 
-                type="submit" 
-                class="px-4 py-2 bg-white border rounded font-medium whitespace-nowrap"
-            >
-                {{ __('Take') }}
-            </button>
-        </div>
+                        {{-- Form with inputs + Take --}}
+                        <form method="POST" action="{{ route('taken.store', $item) }}" class="flex-1 min-w-[250px]">
+                            @csrf
+                            <div class="flex flex-wrap gap-3 w-full">
+                                <input 
+                                    type="text" 
+                                    name="reason" 
+                                    placeholder="{{ __('Reason') }}" 
+                                    class="flex-1 min-w-[150px] border px-3 py-2 rounded @error('reason') border-red-500 @enderror" 
+                                />
+                                <input 
+                                    type="number" 
+                                    name="count" 
+                                    min="1" 
+                                    value="1" 
+                                    class="w-24 border px-3 py-2 rounded @error('count') border-red-500 @enderror" 
+                                />
+                                <button 
+                                    type="submit" 
+                                    class="px-4 py-2 bg-white border rounded font-medium whitespace-nowrap"
+                                >
+                                    {{ __('Take') }}
+                                </button>
+                            </div>
 
-        @if ($errors->any())
-            <div class="text-sm text-red-600 mt-2">
-                {{ $errors->first() }}
-            </div>
-        @endif
-    </form>
+                            @if ($errors->any())
+                                <div class="text-sm text-red-600 mt-2">
+                                    {{ $errors->first() }}
+                                </div>
+                            @endif
+                        </form>
 
-    {{-- Edit/Delete buttons --}}
-    @can('update', $item)
-    <div class="flex flex-wrap gap-2">
-        <a href="{{ route('items.edit', $item) }}" class="px-4 py-2 bg-white border rounded font-medium w-[100px] text-center">
-            {{ __('Edit') }}
-        </a>
+                        {{-- Edit/Delete buttons --}}
+                        @can('update', $item)
+                        <div class="ml-2 flex flex-wrap gap-2">
+                            <a href="{{ route('items.edit', $item) }}" class="px-4 py-2 bg-white border rounded font-medium w-[100px] text-center">
+                                {{ __('Edit') }}
+                            </a>
 
-        <form method="POST" action="{{ route('items.destroy', $item) }}">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="px-4 py-2 bg-white border rounded font-medium w-[100px] text-center">
-                {{ __('Delete') }}
-            </button>
-        </form>
-    </div>
-    @endcan
-</div>
+                            <form method="POST" action="{{ route('items.destroy', $item) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-4 py-2 bg-white border rounded font-medium w-[100px] text-center">
+                                    {{ __('Delete') }}
+                                </button>
+                            </form>
+                        </div>
+                        @endcan
+                    </div>
 
                 </div>
             </div>
