@@ -56,6 +56,12 @@
                                     >
                                         {{__('Take')}}
                                     </button>
+
+                                     @if ($errors->any())
+                                        <div class="mt-2 text-sm text-red-600">
+                                            {{ $errors->first() }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </form>
