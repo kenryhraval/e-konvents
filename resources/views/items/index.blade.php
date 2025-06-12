@@ -32,7 +32,7 @@
                         {{__('Price')}}: <span class="font-bold text-blue-600">{{ $item->price }} €</span>
                     </p>
                     
-                    <div class="flex flex-wrap gap-y-4 gap-x-6 w-full items-start justify-between">
+                    <div class="flex flex-wrap gap-2 gap-y-4 gap-x-6 w-full items-start justify-between">
                         {{-- Form with inputs + Take --}}
                         <form method="POST" action="{{ route('taken.store', $item) }}" class="flex-1 min-w-[250px]">
                             @csrf
