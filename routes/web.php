@@ -27,6 +27,8 @@ Route::middleware([SetLocale::class])->group(function () {
         return back();
     });
 
+    Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
 
     Route::get('/', function () {
         return view('welcome'); 
@@ -50,9 +52,6 @@ Route::middleware([SetLocale::class])->group(function () {
 
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
         Route::post('/attendances', [AttendanceController::class, 'store'])->name('attendances.store');
-
-        Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
-        Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
 
     });
 
